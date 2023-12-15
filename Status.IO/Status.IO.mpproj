@@ -61,6 +61,9 @@
     <Compile Include="Presentation\Folders\Root Folder.mpx">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Presentation\Image Resources.mpx">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Presentation\Views\Endpoints.mpx">
       <SubType>Code</SubType>
     </Compile>
@@ -95,6 +98,7 @@
     <Folder Include="Presentation" />
     <Folder Include="Presentation\Folders" />
     <Folder Include="Presentation\Views" />
+    <Folder Include="Resources\Images" />
     <Folder Include="Type Library" />
     <Folder Include="Resources" />
     <Folder Include="Resources\Scripts" />
@@ -113,6 +117,12 @@
       <SubType>Content</SubType>
       <Generator>FragmentGenerator</Generator>
     </Content>
+    <EmbeddedResource Include="Resources\Images\statusio_icon_16x16.png">
+      <SubType>Content</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Images\statusio_icon_80x80.png">
+      <SubType>Content</SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\VSAC\Microsoft.SystemCenter.OperationsManager.targets" />
 </Project>

@@ -10,7 +10,16 @@
         <ClassType ID="Status.IO.Container" Abstract="false" Accessibility="Internal" Base="Status.IO.MonitoredObject" Hosted="false" Singleton="false" />
       </ClassTypes>
     </EntityTypes>
+
+
+    
   </TypeDefinitions>
+  <Presentation>
+    <ImageReferences>
+      <ImageReference ElementID="Status.IO.MonitoredObject" ImageID="Status.IO.Diagram.Icon"/>
+      <ImageReference ElementID="Status.IO.MonitoredObject" ImageID="Status.IO.Small.Icon"/>
+    </ImageReferences>
+  </Presentation>
   <LanguagePacks>
     <LanguagePack ID="ENU" IsDefault="true">
       <DisplayStrings>

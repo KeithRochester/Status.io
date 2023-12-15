@@ -12,6 +12,14 @@
       </ClassTypes>
     </EntityTypes>
   </TypeDefinitions>
+  <Presentation>
+    <ImageReferences>
+      <ImageReference ElementID="Status.IO.ApiEndPoint" ImageID="Status.IO.Diagram.Icon"/>
+      <ImageReference ElementID="Status.IO.ApiEndPoint" ImageID="Status.IO.Small.Icon"/>
+    </ImageReferences>
+  </Presentation>
+
+
   <LanguagePacks>
     <LanguagePack ID="ENU" IsDefault="true">
       <DisplayStrings>

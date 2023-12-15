@@ -1,0 +1,11 @@
+﻿<ManagementPackFragment SchemaVersion="2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Categories>
+    <Category ID="Status.IO.Diagram.Icon.Category" Target="Status.IO.Diagram.Icon" Value="System!System.Internal.ManagementPack.Images.DiagramIcon" />
+    <Category ID="Status.IO.Small.Icon.Category" Target="Status.IO.Small.Icon" Value="System!System.Internal.ManagementPack.Images.u16x16Icon" />
+  </Categories>
+
+  <Resources>
+    <Image ID="Status.IO.Diagram.Icon" FileName="statusio_icon_80x80.png" Accessibility="Public" HasNullStream="false" />
+    <Image ID="Status.IO.Small.Icon" FileName="statusio_icon_16x16.png" Accessibility="Public" HasNullStream="false" />
+  </Resources>
+</ManagementPackFragment>
