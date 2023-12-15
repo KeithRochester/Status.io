@@ -1,0 +1,104 @@
+﻿<ManagementPackFragment SchemaVersion="2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <TypeDefinitions>
+    <ModuleTypes>
+      <WriteActionModuleType ID="Status.IO.AddApiEndPoint.WriteAction" Accessibility="Public" Batching="false">
+        <Configuration>
+          <xsd:element minOccurs="1" name="DisplayName" type="xsd:string" />
+          <xsd:element minOccurs="1" name="URL" type="xsd:string" />
+          <xsd:element minOccurs="1" name="Proxy" type="xsd:string" />
+          <xsd:element minOccurs="1" name="ComponentNameRegEx" type="xsd:string" />
+          <xsd:element minOccurs="1" name="ContainerNameRegEx" type="xsd:string" />
+          <xsd:element minOccurs="1" name="ManagementServer" type="xsd:string" />
+          <xsd:element minOccurs="1" name="TimeoutSeconds" type="xsd:int"  />
+        </Configuration>
+        <OverrideableParameters>
+          <OverrideableParameter ID="DisplayName" Selector="$Config/DisplayName$" ParameterType="string" />
+          <OverrideableParameter ID="URL" Selector="$Config/URL$" ParameterType="string" />
+          <OverrideableParameter ID="Proxy" Selector="$Config/Proxy$" ParameterType="string" />
+          <OverrideableParameter ID="ComponentNameRegEx" Selector="$Config/ComponentNameRegEx$" ParameterType="string" />
+          <OverrideableParameter ID="ContainerNameRegEx" Selector="$Config/ContainerNameRegEx$" ParameterType="string" />
+          <OverrideableParameter ID="ManagementServer" Selector="$Config/ManagementServer$" ParameterType="string" />
+          <OverrideableParameter ID="TimeoutSeconds" Selector="$Config/TimeoutSeconds$" ParameterType="int" />
+        </OverrideableParameters>
+        <ModuleImplementation Isolation="Any">
+          <Composite>
+            <MemberModules>
+              <WriteAction ID="Script" TypeID="Windows!Microsoft.Windows.PowerShellWriteAction">
+                <ScriptName>New-APIEndpoint.ps1</ScriptName>
+                <ScriptBody>$IncludeFileContent/Resources/Scripts/New-APIEndpoint.ps1$</ScriptBody>
+                <Parameters>
+                  <Parameter>
+                    <Name>DisplayName</Name>
+                    <Value>$Config/DisplayName$</Value>
+                  </Parameter>
+                  <Parameter>
+                    <Name>URL</Name>
+                    <Value>$Config/URL$</Value>
+                  </Parameter>
+                  <Parameter>
+                    <Name>Proxy</Name>
+                    <Value>$Config/Proxy$</Value>
+                  </Parameter>
+                  <Parameter>
+                    <Name>ComponentNameRegEx</Name>
+                    <Value>$Config/ComponentNameRegEx$</Value>
+                  </Parameter>
+                  <Parameter>
+                    <Name>ContainerNameRegEx</Name>
+                    <Value>$Config/ContainerNameRegEx$</Value>
+                  </Parameter>
+                  <Parameter>
+                    <Name>ManagementServer</Name>
+                    <Value>$Config/ManagementServer$</Value>
+                  </Parameter>
+                </Parameters>
+                <TimeoutSeconds>$Config/TimeoutSeconds$</TimeoutSeconds>
+              </WriteAction>
+            </MemberModules>
+            <Composition>
+              <Node ID="Script" />
+            </Composition>
+          </Composite>
+        </ModuleImplementation>
+        <OutputType>Windows!Microsoft.Windows.SerializedObjectData</OutputType>
+        <InputType>System!System.BaseData</InputType>
+      </WriteActionModuleType>
+    </ModuleTypes>
+  </TypeDefinitions>
+  <LanguagePacks>
+    <LanguagePack ID="ENU" IsDefault="true">
+      <DisplayStrings>
+
+        <DisplayString ElementID="Status.IO.AddApiEndPoint.WriteAction">
+          <Name>Add Status.IO API Endpoint</Name>
+          <Description>Create Status.IO API Endpoint.</Description>
+        </DisplayString>
+        <DisplayString ElementID="Status.IO.AddApiEndPoint.WriteAction" SubElementID="DisplayName">
+          <Name>Display Name</Name>
+          <Description>Display Name for the API Endpoint.</Description>
+        </DisplayString>
+        <DisplayString ElementID="Status.IO.AddApiEndPoint.WriteAction" SubElementID="URL">
+          <Name>URL</Name>
+          <Description>URL of Endpoint.</Description>
+        </DisplayString>
+        <DisplayString ElementID="Status.IO.AddApiEndPoint.WriteAction" SubElementID="Proxy">
+          <Name>Proxy</Name>
+          <Description>Http proxy to use to connect to endpoint.</Description>
+        </DisplayString>
+        <DisplayString ElementID="Status.IO.AddApiEndPoint.WriteAction" SubElementID="ComponentNameRegEx">
+          <Name>Component Name Regular Expression</Name>
+          <Description>Regular expression that components must match to be included in discovery and monitoring</Description>
+        </DisplayString>
+        <DisplayString ElementID="Status.IO.AddApiEndPoint.WriteAction" SubElementID="ContainerNameRegEx">
+          <Name>Container Name Regular Expression</Name>
+          <Description>Regular expression that containers must match to be included in discovery and monitoring</Description>
+        </DisplayString>
+        <DisplayString ElementID="Status.IO.AddApiEndPoint.WriteAction" SubElementID="ManagementServer">
+          <Name>Management Server</Name>
+          <Description>Management Server to run the task on.</Description>
+        </DisplayString>
+      </DisplayStrings>
+    </LanguagePack>
+  </LanguagePacks>
+</ManagementPackFragment>
+

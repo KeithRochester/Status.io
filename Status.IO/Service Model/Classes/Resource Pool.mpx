@@ -1,0 +1,45 @@
+﻿<ManagementPackFragment SchemaVersion="2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <TypeDefinitions>
+    <EntityTypes>
+      <ClassTypes>
+
+        <ClassType ID="Status.IO.ResourcePool" Accessibility="Internal" Abstract="false" Base="SC!Microsoft.SystemCenter.ManagementServicePool" Hosted="false" Singleton="true" />
+      </ClassTypes>
+    </EntityTypes>
+  </TypeDefinitions>
+  <Monitoring>
+    <Discoveries>
+      <Discovery ID="Status.IO.MonitorObjectsManagedbyResourcePool.Discovery" Target="Status.IO.ResourcePool" Enabled="true" Remotable="true" Priority="Normal">
+        <Category>Discovery</Category>
+        <DiscoveryTypes>
+          <DiscoveryRelationship TypeID="SC!Microsoft.SystemCenter.ManagementActionPointShouldManageEntity"/>
+        </DiscoveryTypes>
+        <DataSource ID="DS" TypeID="SC!Microsoft.SystemCenter.GroupPopulator">
+          <RuleId>$MPElement$</RuleId>
+          <GroupInstanceId>$Target/Id$</GroupInstanceId>
+          <MembershipRules>
+            <MembershipRule>
+              <MonitoringClass>$MPElement[Name="Status.IO.MonitoredObject"]$</MonitoringClass>
+              <RelationshipClass>$MPElement[Name="SC!Microsoft.SystemCenter.ManagementActionPointShouldManageEntity"]$</RelationshipClass>
+            </MembershipRule>
+            <MembershipRule>
+              <MonitoringClass>$MPElement[Name="Status.IO.ApiEndPoint"]$</MonitoringClass>
+              <RelationshipClass>$MPElement[Name="SC!Microsoft.SystemCenter.ManagementActionPointShouldManageEntity"]$</RelationshipClass>
+            </MembershipRule>
+          </MembershipRules>
+        </DataSource>
+      </Discovery>
+    </Discoveries>
+  </Monitoring>
+  <LanguagePacks>
+    <LanguagePack ID="ENU" IsDefault="true">
+      <DisplayStrings>
+
+        <DisplayString ElementID="Status.IO.ResourcePool">
+          <Name>Status.IO Monitoring Resource Pool</Name>
+          <Description>Resource Pool used to run Status.IO Discovery and Monitoring workflows</Description>
+        </DisplayString>
+      </DisplayStrings>
+    </LanguagePack>
+  </LanguagePacks>
+</ManagementPackFragment>

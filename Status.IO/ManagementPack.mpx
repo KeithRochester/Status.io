@@ -1,0 +1,34 @@
+﻿<ManagementPackFragment SchemaVersion="2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <LanguagePacks>
+    <LanguagePack ID="ENU" IsDefault="true">
+      <DisplayStrings>
+        <DisplayString ElementID="Status.IO">
+          <Name>Status.IO Monitoring</Name>
+          <Description>Status.IO Public API Monitoring</Description>
+        </DisplayString>
+      </DisplayStrings>
+      <KnowledgeArticles>
+        <KnowledgeArticle ElementID="Status.IO" Visible="true">
+          <MamlContent>
+            <maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10">
+              <maml:title>Status.IO Monitoring</maml:title>
+              <maml:para>
+                Documentation and the latest version can be found on GitHub -<maml:navigationLink>
+                  <maml:linkText>https://github.com/KeithRochester/Status.IO.</maml:linkText>
+                  <maml:uri href="https://github.com/KeithRochester/Status.IO"/>
+                </maml:navigationLink>. 
+              </maml:para>
+              <maml:para>
+                If you have any questions or suggestions, please send me a message <maml:navigationLink>
+                  <maml:linkText>keith.rochester@unit92.com</maml:linkText>
+                  <maml:uri href="mailto:keith.rochester@unit92.com?subject=Standard%20Monitoring%20Framework"/>
+                </maml:navigationLink>
+              </maml:para>
+            </maml:section>
+          </MamlContent>
+        </KnowledgeArticle>
+
+      </KnowledgeArticles>
+    </LanguagePack>
+  </LanguagePacks>
+</ManagementPackFragment>

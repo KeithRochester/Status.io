@@ -1,0 +1,27 @@
+﻿<ManagementPackFragment SchemaVersion="2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <TypeDefinitions>
+    <EntityTypes>
+      <RelationshipTypes>
+        <RelationshipType ID="Status.IO.ComponentContainsContainer.Relationship" Base="System!System.Containment" Abstract="false" Accessibility="Internal">
+          <Source ID="EndPoint" Type="Status.IO.Component" />
+          <Target ID="Container" Type="Status.IO.Container" />
+        </RelationshipType>
+      </RelationshipTypes>
+    </EntityTypes>
+  </TypeDefinitions>
+  <LanguagePacks>
+    <LanguagePack ID="ENU" IsDefault="true">
+      <DisplayStrings>
+        <DisplayString ElementID="Status.IO.ComponentContainsContainer.Relationship">
+          <Name>Status.IO Component contains Container</Name>
+        </DisplayString>
+        <DisplayString ElementID="Status.IO.ComponentContainsContainer.Relationship" SubElementID="EndPoint">
+          <Name>EndPoint</Name>
+        </DisplayString>
+        <DisplayString ElementID="Status.IO.ComponentContainsContainer.Relationship" SubElementID="Container">
+          <Name>Container</Name>
+        </DisplayString>
+      </DisplayStrings>
+    </LanguagePack>
+  </LanguagePacks>
+</ManagementPackFragment>

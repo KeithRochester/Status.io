@@ -1,0 +1,118 @@
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <ProjectGuid>{9f041fdd-5661-49d5-a3ca-ac556fdd3b33}</ProjectGuid>
+    <RootNamespace>Status.IO</RootNamespace>
+    <Name>Status.IO</Name>
+    <ManagementPackName>Status.IO</ManagementPackName>
+    <Version>1.0.0.0</Version>
+    <MpFrameworkVersion>v7.0.2</MpFrameworkVersion>
+    <MpFrameworkProfile>OM</MpFrameworkProfile>
+    <ProductVersion>1.1.0.0</ProductVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>..\MPS\</OutputPath>
+    <GenerateSealed>True</GenerateSealed>
+    <Company>Unit 92 Ltd</Company>
+    <Copyright>Copyright (c) Unit 92 Ltd. All rights reserved.</Copyright>
+    <DelaySigning>False</DelaySigning>
+    <AssemblyOriginatorKeyFile>..\..\U92SMF.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>false</DebugSymbols>
+    <OutputPath>bin\Release\</OutputPath>
+    <DelaySigning>false</DelaySigning>
+    <Company>MyCompany</Company>
+    <Copyright>Copyright (c) MyCompany. All rights reserved.</Copyright>
+    <DelaySign>false</DelaySign>
+    <AssemblyOriginatorKeyFile />
+  </PropertyGroup>
+  <ItemGroup>
+    <ManagementPackReference Include="Microsoft.SystemCenter.Library">
+      <Alias>SC</Alias>
+      <PackageToBundle>false</PackageToBundle>
+    </ManagementPackReference>
+    <ManagementPackReference Include="Microsoft.Windows.Library">
+      <Alias>Windows</Alias>
+      <PackageToBundle>false</PackageToBundle>
+    </ManagementPackReference>
+    <ManagementPackReference Include="System.Health.Library">
+      <Alias>Health</Alias>
+      <PackageToBundle>false</PackageToBundle>
+    </ManagementPackReference>
+    <ManagementPackReference Include="System.Library">
+      <Alias>System</Alias>
+      <PackageToBundle>false</PackageToBundle>
+    </ManagementPackReference>
+    <ManagementPackReference Include="Microsoft.SystemCenter.Visualization.Library">
+      <Alias>Visualization</Alias>
+      <PackageToBundle>false</PackageToBundle>
+    </ManagementPackReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Health Model\Tasks\Agent Tasks.mptg.mpx">
+      <SubType>Code</SubType>
+      <DependentUpon>Health Model\Tasks\Agent Tasks.mptg</DependentUpon>
+    </Compile>
+    <Compile Include="ManagementPack.mpx">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Presentation\Folders\Root Folder.mpx">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Presentation\Views\Endpoints.mpx">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Presentation\Views\Resource Pool.mpx">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Service Model\Classes\API End point.mpx">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Service Model\Classes\Component and Container.mpx">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Service Model\Classes\Resource Pool.mpx">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Service Model\Relationships\API EndPoint Contains Component.mpx">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Service Model\Relationships\Component Contains Container.mpx">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Type Library\Module Types\Write Actions\Add API Endpoint Write Action.mpx">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Type Library\Module Types\Write Actions\Remove API Endpoint Write Action.mpx">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Health Model" />
+    <Folder Include="Health Model\Tasks" />
+    <Folder Include="Presentation" />
+    <Folder Include="Presentation\Folders" />
+    <Folder Include="Presentation\Views" />
+    <Folder Include="Type Library" />
+    <Folder Include="Resources" />
+    <Folder Include="Resources\Scripts" />
+    <Folder Include="Service Model" />
+    <Folder Include="Service Model\Classes" />
+    <Folder Include="Service Model\Relationships" />
+    <Folder Include="Type Library\Module Types" />
+    <Folder Include="Type Library\Module Types\Write Actions" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Scripts\New-APIEndpoint.ps1" />
+    <EmbeddedResource Include="Resources\Scripts\Remove-APIEndpoint.ps1" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Health Model\Tasks\Agent Tasks.mptg">
+      <SubType>Content</SubType>
+      <Generator>FragmentGenerator</Generator>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\VSAC\Microsoft.SystemCenter.OperationsManager.targets" />
+</Project>

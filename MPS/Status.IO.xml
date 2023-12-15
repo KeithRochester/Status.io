@@ -1,0 +1,566 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ManagementPack SchemaVersion="2.0" ContentReadable="true" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Manifest>
+    <Identity>
+      <ID>Status.IO</ID>
+      <Version>1.0.0.23</Version>
+    </Identity>
+    <Name>Status.IO</Name>
+    <References>
+      <Reference Alias="SC">
+        <ID>Microsoft.SystemCenter.Library</ID>
+        <Version>7.0.8433.0</Version>
+        <PublicKeyToken>31bf3856ad364e35</PublicKeyToken>
+      </Reference>
+      <Reference Alias="Windows">
+        <ID>Microsoft.Windows.Library</ID>
+        <Version>7.5.8501.0</Version>
+        <PublicKeyToken>31bf3856ad364e35</PublicKeyToken>
+      </Reference>
+      <Reference Alias="System">
+        <ID>System.Library</ID>
+        <Version>7.5.8501.0</Version>
+        <PublicKeyToken>31bf3856ad364e35</PublicKeyToken>
+      </Reference>
+    </References>
+  </Manifest>
+  <TypeDefinitions>
+    <EntityTypes>
+      <ClassTypes>
+        <ClassType ID="Status.IO.ApiEndPoint" Base="System!System.Entity" Accessibility="Internal" Abstract="false" Hosted="false" Singleton="false">
+          <Property ID="URL" Type="string" Key="true" />
+          <Property ID="Proxy" Type="string" Key="false" />
+          <Property ID="ComponentNameRegEx" Type="string" Key="true" />
+          <Property ID="ContainerNameRegEx" Type="string" Key="true" />
+        </ClassType>
+        <ClassType ID="Status.IO.MonitoredObject" Abstract="true" Accessibility="Internal" Base="System!System.Entity" Hosted="false" Singleton="false">
+          <Property ID="Id" Key="true" Type="string" />
+          <Property ID="Name" Key="false" Type="string" />
+        </ClassType>
+        <ClassType ID="Status.IO.Component" Abstract="false" Accessibility="Internal" Base="Status.IO.MonitoredObject" Hosted="false" Singleton="false" />
+        <ClassType ID="Status.IO.Container" Abstract="false" Accessibility="Internal" Base="Status.IO.MonitoredObject" Hosted="false" Singleton="false" />
+        <ClassType ID="Status.IO.ResourcePool" Accessibility="Internal" Abstract="false" Base="SC!Microsoft.SystemCenter.ManagementServicePool" Hosted="false" Singleton="true" />
+      </ClassTypes>
+      <RelationshipTypes>
+        <RelationshipType ID="Status.IO.ApiEndPointContainsComponent.Relationship" Base="System!System.Containment" Abstract="false" Accessibility="Internal">
+          <Source ID="EndPoint" Type="Status.IO.ApiEndPoint" />
+          <Target ID="Component" Type="Status.IO.Component" />
+        </RelationshipType>
+        <RelationshipType ID="Status.IO.ComponentContainsContainer.Relationship" Base="System!System.Containment" Abstract="false" Accessibility="Internal">
+          <Source ID="EndPoint" Type="Status.IO.Component" />
+          <Target ID="Container" Type="Status.IO.Container" />
+        </RelationshipType>
+      </RelationshipTypes>
+    </EntityTypes>
+    <ModuleTypes>
+      <WriteActionModuleType ID="Status.IO.AddApiEndPoint.WriteAction" Accessibility="Public" Batching="false">
+        <Configuration>
+          <xsd:element minOccurs="1" name="DisplayName" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element minOccurs="1" name="URL" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element minOccurs="1" name="Proxy" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element minOccurs="1" name="ComponentNameRegEx" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element minOccurs="1" name="ContainerNameRegEx" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element minOccurs="1" name="ManagementServer" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element minOccurs="1" name="TimeoutSeconds" type="xsd:int" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+        </Configuration>
+        <OverrideableParameters>
+          <OverrideableParameter ID="DisplayName" Selector="$Config/DisplayName$" ParameterType="string" />
+          <OverrideableParameter ID="URL" Selector="$Config/URL$" ParameterType="string" />
+          <OverrideableParameter ID="Proxy" Selector="$Config/Proxy$" ParameterType="string" />
+          <OverrideableParameter ID="ComponentNameRegEx" Selector="$Config/ComponentNameRegEx$" ParameterType="string" />
+          <OverrideableParameter ID="ContainerNameRegEx" Selector="$Config/ContainerNameRegEx$" ParameterType="string" />
+          <OverrideableParameter ID="ManagementServer" Selector="$Config/ManagementServer$" ParameterType="string" />
+          <OverrideableParameter ID="TimeoutSeconds" Selector="$Config/TimeoutSeconds$" ParameterType="int" />
+        </OverrideableParameters>
+        <ModuleImplementation Isolation="Any">
+          <Composite>
+            <MemberModules>
+              <WriteAction ID="Script" TypeID="Windows!Microsoft.Windows.PowerShellWriteAction">
+                <ScriptName>New-APIEndpoint.ps1</ScriptName>
+                <ScriptBody><![CDATA[[CmdletBinding()]
+Param(
+	[Parameter(Mandatory=$True)]
+	[string]$DisplayName,
+	[Parameter(Mandatory = $True)]
+	[String]$URL,
+	[Parameter(Mandatory = $True)]
+	[String]$Proxy,    
+	[Parameter(Mandatory = $True)]
+	[String]$ComponentNameRegEx,
+	[Parameter(Mandatory = $True)]
+	[String]$ContainerNameRegEx,
+	[Parameter(Mandatory = $false)]
+	[String]$ManagementServer = '.'
+
+)
+
+<#
+$DisplayName = "Testing"
+$URL = 'https://9498199887151372.hostedstatus.com/1.0/status/5d849b1c02e65b3ec45369d4'
+$Proxy = "N/A"
+$ComponentNameRegEx = 'United Kingdom'
+$ContainerNameRegEx = '.'
+$ManagementServer = '.'
+#>
+
+Add-PSSnapin Microsoft.EnterpriseManagement.OperationsManager.Client
+New-SCOMManagementGroupConnection -ComputerName $ManagementServer
+$MG = Get-SCOMManagementGroup
+
+
+$EntityClass = Get-SCOMClass -Name System.Entity
+$APIEndPointClass = Get-SCOMClass -Name Status.IO.ApiEndPoint
+
+$Connector = Get-SCOMConnector -DisplayName "Status.IO Connector"
+if(!$Connector){
+    Add-SCOMConnector -Name "Status.IO Connector" -DisplayName "Status.IO Connector" -Description "Connector used to submit discovery data"
+    $Connector = Get-SCOMConnector -DisplayName "Status.IO Connector"
+    }
+
+
+$DiscoveryData = New-Object Microsoft.EnterpriseManagement.ConnectorFramework.IncrementalDiscoveryData
+
+$APIEndPoint = New-Object Microsoft.EnterpriseManagement.Common.CreatableEnterpriseManagementObject($mg,$APIEndPointClass)
+
+$APIEndPoint[$APIEndPointClass,"URL"].Value = $URL
+$APIEndPoint[$APIEndPointClass,"ComponentNameRegEx"].Value = $ComponentNameRegEx
+$APIEndPoint[$APIEndPointClass,"ContainerNameRegEx"].Value = $ContainerNameRegEx
+$APIEndPoint[$APIEndPointClass,"Proxy"].Value = $Proxy
+$APIEndPoint[$EntityClass,"DisplayName"].Value = $DisplayName
+
+$DiscoveryData.Add($APIEndPoint)
+$DiscoveryData.Commit($Connector)
+]]></ScriptBody>
+                <Parameters>
+                  <Parameter>
+                    <Name>DisplayName</Name>
+                    <Value>$Config/DisplayName$</Value>
+                  </Parameter>
+                  <Parameter>
+                    <Name>URL</Name>
+                    <Value>$Config/URL$</Value>
+                  </Parameter>
+                  <Parameter>
+                    <Name>Proxy</Name>
+                    <Value>$Config/Proxy$</Value>
+                  </Parameter>
+                  <Parameter>
+                    <Name>ComponentNameRegEx</Name>
+                    <Value>$Config/ComponentNameRegEx$</Value>
+                  </Parameter>
+                  <Parameter>
+                    <Name>ContainerNameRegEx</Name>
+                    <Value>$Config/ContainerNameRegEx$</Value>
+                  </Parameter>
+                  <Parameter>
+                    <Name>ManagementServer</Name>
+                    <Value>$Config/ManagementServer$</Value>
+                  </Parameter>
+                </Parameters>
+                <TimeoutSeconds>$Config/TimeoutSeconds$</TimeoutSeconds>
+              </WriteAction>
+            </MemberModules>
+            <Composition>
+              <Node ID="Script" />
+            </Composition>
+          </Composite>
+        </ModuleImplementation>
+        <OutputType>Windows!Microsoft.Windows.SerializedObjectData</OutputType>
+        <InputType>System!System.BaseData</InputType>
+      </WriteActionModuleType>
+      <WriteActionModuleType ID="Status.IO.RemoveApiEndPoint.WriteAction" Accessibility="Public" Batching="false">
+        <Configuration>
+          <xsd:element minOccurs="1" name="DisplayName" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element minOccurs="1" name="URL" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element minOccurs="1" name="Proxy" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element minOccurs="1" name="ComponentNameRegEx" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element minOccurs="1" name="ContainerNameRegEx" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element minOccurs="1" name="ManagementServer" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element minOccurs="1" name="TimeoutSeconds" type="xsd:int" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+        </Configuration>
+        <OverrideableParameters>
+          <OverrideableParameter ID="DisplayName" Selector="$Config/DisplayName$" ParameterType="string" />
+          <OverrideableParameter ID="URL" Selector="$Config/URL$" ParameterType="string" />
+          <OverrideableParameter ID="Proxy" Selector="$Config/Proxy$" ParameterType="string" />
+          <OverrideableParameter ID="ComponentNameRegEx" Selector="$Config/ComponentNameRegEx$" ParameterType="string" />
+          <OverrideableParameter ID="ContainerNameRegEx" Selector="$Config/ContainerNameRegEx$" ParameterType="string" />
+          <OverrideableParameter ID="ManagementServer" Selector="$Config/ManagementServer$" ParameterType="string" />
+          <OverrideableParameter ID="TimeoutSeconds" Selector="$Config/TimeoutSeconds$" ParameterType="int" />
+        </OverrideableParameters>
+        <ModuleImplementation Isolation="Any">
+          <Composite>
+            <MemberModules>
+              <WriteAction ID="Script" TypeID="Windows!Microsoft.Windows.PowerShellWriteAction">
+                <ScriptName>Remove-APIEndpoint.ps1</ScriptName>
+                <ScriptBody><![CDATA[[CmdletBinding()]
+Param(
+	[Parameter(Mandatory=$True)]
+	[string]$DisplayName,
+	[Parameter(Mandatory = $True)]
+	[String]$URL,
+	[Parameter(Mandatory = $True)]
+	[String]$Proxy,    
+	[Parameter(Mandatory = $True)]
+	[String]$ComponentNameRegEx,
+	[Parameter(Mandatory = $True)]
+	[String]$ContainerNameRegEx,
+	[Parameter(Mandatory = $false)]
+	[String]$ManagementServer = '.'
+
+)
+
+<#
+$DisplayName = "Testing"
+$URL = 'https://9498199887151372.hostedstatus.com/1.0/status/5d849b1c02e65b3ec45369d4'
+$Proxy = "N/A"
+$ComponentNameRegEx = 'United Kingdom'
+$ContainerNameRegEx = '.'
+$ManagementServer = '.'
+#>
+
+Add-PSSnapin Microsoft.EnterpriseManagement.OperationsManager.Client
+New-SCOMManagementGroupConnection -ComputerName $ManagementServer
+$MG = Get-SCOMManagementGroup
+
+
+$EntityClass = Get-SCOMClass -Name System.Entity
+$APIEndPointClass = Get-SCOMClass -Name Status.IO.ApiEndPoint
+
+$Connector = Get-SCOMConnector -DisplayName "Status.IO Connector"
+if(!$Connector){
+    Add-SCOMConnector -Name "Status.IO Connector" -DisplayName "Status.IO Connector" -Description "Connector used to submit discovery data"
+    $Connector = Get-SCOMConnector -DisplayName "Status.IO Connector"
+    }
+
+
+$DiscoveryData = New-Object Microsoft.EnterpriseManagement.ConnectorFramework.IncrementalDiscoveryData
+
+$APIEndPoint = New-Object Microsoft.EnterpriseManagement.Common.CreatableEnterpriseManagementObject($mg,$APIEndPointClass)
+
+$APIEndPoint[$APIEndPointClass,"URL"].Value = $URL
+$APIEndPoint[$APIEndPointClass,"ComponentNameRegEx"].Value = $ComponentNameRegEx
+$APIEndPoint[$APIEndPointClass,"ContainerNameRegEx"].Value = $ContainerNameRegEx
+$APIEndPoint[$APIEndPointClass,"Proxy"].Value = $Proxy
+$APIEndPoint[$EntityClass,"DisplayName"].Value = $DisplayName
+
+$DiscoveryData.Remove($APIEndPoint)
+$DiscoveryData.Commit($Connector)
+]]></ScriptBody>
+                <Parameters>
+                  <Parameter>
+                    <Name>DisplayName</Name>
+                    <Value>$Config/DisplayName$</Value>
+                  </Parameter>
+                  <Parameter>
+                    <Name>URL</Name>
+                    <Value>$Config/URL$</Value>
+                  </Parameter>
+                  <Parameter>
+                    <Name>Proxy</Name>
+                    <Value>$Config/Proxy$</Value>
+                  </Parameter>
+                  <Parameter>
+                    <Name>ComponentNameRegEx</Name>
+                    <Value>$Config/ComponentNameRegEx$</Value>
+                  </Parameter>
+                  <Parameter>
+                    <Name>ContainerNameRegEx</Name>
+                    <Value>$Config/ContainerNameRegEx$</Value>
+                  </Parameter>
+                  <Parameter>
+                    <Name>ManagementServer</Name>
+                    <Value>$Config/ManagementServer$</Value>
+                  </Parameter>
+                </Parameters>
+                <TimeoutSeconds>$Config/TimeoutSeconds$</TimeoutSeconds>
+              </WriteAction>
+            </MemberModules>
+            <Composition>
+              <Node ID="Script" />
+            </Composition>
+          </Composite>
+        </ModuleImplementation>
+        <OutputType>Windows!Microsoft.Windows.SerializedObjectData</OutputType>
+        <InputType>System!System.BaseData</InputType>
+      </WriteActionModuleType>
+    </ModuleTypes>
+  </TypeDefinitions>
+  <Monitoring>
+    <Discoveries>
+      <Discovery ID="Status.IO.MonitorObjectsManagedbyResourcePool.Discovery" Target="Status.IO.ResourcePool" Enabled="true" Remotable="true" Priority="Normal">
+        <Category>Discovery</Category>
+        <DiscoveryTypes>
+          <DiscoveryRelationship TypeID="SC!Microsoft.SystemCenter.ManagementActionPointShouldManageEntity" />
+        </DiscoveryTypes>
+        <DataSource ID="DS" TypeID="SC!Microsoft.SystemCenter.GroupPopulator">
+          <RuleId>$MPElement$</RuleId>
+          <GroupInstanceId>$Target/Id$</GroupInstanceId>
+          <MembershipRules>
+            <MembershipRule>
+              <MonitoringClass>$MPElement[Name="Status.IO.MonitoredObject"]$</MonitoringClass>
+              <RelationshipClass>$MPElement[Name="SC!Microsoft.SystemCenter.ManagementActionPointShouldManageEntity"]$</RelationshipClass>
+            </MembershipRule>
+            <MembershipRule>
+              <MonitoringClass>$MPElement[Name="Status.IO.ApiEndPoint"]$</MonitoringClass>
+              <RelationshipClass>$MPElement[Name="SC!Microsoft.SystemCenter.ManagementActionPointShouldManageEntity"]$</RelationshipClass>
+            </MembershipRule>
+          </MembershipRules>
+        </DataSource>
+      </Discovery>
+    </Discoveries>
+    <Tasks>
+      <Task ID="Status.IO.Remove.APIEndpoint.Task" Accessibility="Internal" Target="Status.IO.ApiEndPoint" Enabled="true" Timeout="300" Remotable="true">
+        <Category>Maintenance</Category>
+        <WriteAction ID="WA" TypeID="Status.IO.RemoveApiEndPoint.WriteAction">
+          <DisplayName>$Target/Property[Type="System!System.Entity"]/DisplayName$</DisplayName>
+          <URL>$Target/Property[Type="Status.IO.ApiEndPoint"]/URL$</URL>
+          <Proxy>$Target/Property[Type="Status.IO.ApiEndPoint"]/Proxy$</Proxy>
+          <ComponentNameRegEx>$Target/Property[Type="Status.IO.ApiEndPoint"]/ComponentNameRegEx$</ComponentNameRegEx>
+          <ContainerNameRegEx>$Target/Property[Type="Status.IO.ApiEndPoint"]/ContainerNameRegEx$</ContainerNameRegEx>
+          <ManagementServer>.</ManagementServer>
+          <TimeoutSeconds>60</TimeoutSeconds>
+        </WriteAction>
+      </Task>
+      <Task ID="Status.IO.Add.APIEndpoint.Task" Accessibility="Internal" Target="Status.IO.ResourcePool" Enabled="true" Timeout="300" Remotable="true">
+        <Category>Maintenance</Category>
+        <WriteAction ID="WA" TypeID="Status.IO.AddApiEndPoint.WriteAction">
+          <DisplayName>Testing</DisplayName>
+          <URL>https://9498199887151372.hostedstatus.com/1.0/status/5d849b1c02e65b3ec45369d4</URL>
+          <Proxy></Proxy>
+          <ComponentNameRegEx>.</ComponentNameRegEx>
+          <ContainerNameRegEx>.</ContainerNameRegEx>
+          <ManagementServer>.</ManagementServer>
+          <TimeoutSeconds>60</TimeoutSeconds>
+        </WriteAction>
+      </Task>
+    </Tasks>
+  </Monitoring>
+  <Presentation>
+    <Views>
+      <View ID="Status.IO.ApiEndPoint.View" Accessibility="Public" Enabled="true" Target="Status.IO.ApiEndPoint" TypeID="SC!Microsoft.SystemCenter.StateViewType" Visible="true">
+        <Category>Operations</Category>
+        <Criteria>
+          <InMaintenanceMode>false</InMaintenanceMode>
+        </Criteria>
+        <Presentation>
+          <ColumnInfo Index="0" SortIndex="0" Width="100" Grouped="false" Sorted="true" IsSortable="true" Visible="true" SortOrder="Descending">
+            <Name>State</Name>
+            <Id>Status.IO.ApiEndPoint</Id>
+          </ColumnInfo>
+          <ColumnInfo Index="1" SortIndex="-1" Width="100" Grouped="false" Sorted="false" IsSortable="true" Visible="true" SortOrder="Ascending">
+            <Name>Maintenance Mode</Name>
+            <Id>InMaintenanceMode</Id>
+          </ColumnInfo>
+          <ColumnInfo Index="2" SortIndex="-1" Width="100" Grouped="false" Sorted="false" IsSortable="true" Visible="true" SortOrder="Ascending">
+            <Name>Name</Name>
+            <Id>Name</Id>
+          </ColumnInfo>
+          <ColumnInfo Index="3" SortIndex="-1" Width="100" Grouped="false" Sorted="false" IsSortable="true" Visible="true" SortOrder="Ascending">
+            <Name>URL</Name>
+            <Id>Status.IO.ApiEndPoint/URL</Id>
+          </ColumnInfo>
+          <ColumnInfo Index="4" SortIndex="-1" Width="100" Grouped="false" Sorted="false" IsSortable="true" Visible="true" SortOrder="Ascending">
+            <Name>Proxy</Name>
+            <Id>Status.IO.ApiEndPoint/Proxy</Id>
+          </ColumnInfo>
+          <ColumnInfo Index="5" SortIndex="-1" Width="100" Grouped="false" Sorted="false" IsSortable="true" Visible="true" SortOrder="Ascending">
+            <Name>Component Name Regular Expression</Name>
+            <Id>Status.IO.ApiEndPoint/ComponentNameRegEx</Id>
+          </ColumnInfo>
+          <ColumnInfo Index="5" SortIndex="-1" Width="100" Grouped="false" Sorted="false" IsSortable="true" Visible="true" SortOrder="Ascending">
+            <Name>Container Name Regular Expression</Name>
+            <Id>Status.IO.ApiEndPoint/ContainerNameRegEx</Id>
+          </ColumnInfo>
+        </Presentation>
+        <Target />
+      </View>
+      <View ID="Status.IO.ResourcePool.View" Accessibility="Public" Enabled="true" Target="Status.IO.ResourcePool" TypeID="SC!Microsoft.SystemCenter.StateViewType" Visible="true">
+        <Category>Operations</Category>
+        <Criteria>
+          <InMaintenanceMode>false</InMaintenanceMode>
+        </Criteria>
+        <Presentation>
+          <ColumnInfo Index="0" SortIndex="0" Width="100" Grouped="false" Sorted="true" IsSortable="true" Visible="true" SortOrder="Descending">
+            <Name>State</Name>
+            <Id>Status.IO.ResourcePool</Id>
+          </ColumnInfo>
+          <ColumnInfo Index="1" SortIndex="-1" Width="100" Grouped="false" Sorted="false" IsSortable="true" Visible="true" SortOrder="Ascending">
+            <Name>Maintenance Mode</Name>
+            <Id>InMaintenanceMode</Id>
+          </ColumnInfo>
+          <ColumnInfo Index="2" SortIndex="-1" Width="100" Grouped="false" Sorted="false" IsSortable="true" Visible="true" SortOrder="Ascending">
+            <Name>Name</Name>
+            <Id>Name</Id>
+          </ColumnInfo>
+        </Presentation>
+        <Target />
+      </View>
+    </Views>
+    <Folders>
+      <Folder ID="Status.IO.Folder" Accessibility="Public" ParentFolder="SC!Microsoft.SystemCenter.Monitoring.ViewFolder.Root" />
+    </Folders>
+    <FolderItems>
+      <FolderItem ElementID="Status.IO.ApiEndPoint.View" ID="Status.IO.ApiEndPoint.View.FolderItem" Folder="Status.IO.Folder" />
+      <FolderItem ElementID="Status.IO.ResourcePool.View" ID="Status.IO.ResourcePool.View.FolderItem" Folder="Status.IO.Folder" />
+    </FolderItems>
+  </Presentation>
+  <LanguagePacks>
+    <LanguagePack ID="ENU" IsDefault="true">
+      <DisplayStrings>
+        <DisplayString ElementID="Status.IO.Remove.APIEndpoint.Task">
+          <Name>Remove Status.IO API Endpoint</Name>
+          <Description>Removes select Status.IO API Endpoint</Description>
+        </DisplayString>
+        <DisplayString ElementID="Status.IO.Add.APIEndpoint.Task">
+          <Name>Add Status.IO API Endpoint</Name>
+          <Description>Adds a Status.IO API Endpoint to be discovered and monitored</Description>
+        </DisplayString>
+        <DisplayString ElementID="Status.IO">
+          <Name>Status.IO Monitoring</Name>
+          <Description>Status.IO Public API Monitoring</Description>
+        </DisplayString>
+        <DisplayString ElementID="Status.IO.Folder">
+          <Name>Status.IO</Name>
+        </DisplayString>
+        <DisplayString ElementID="Status.IO.ApiEndPoint.View">
+          <Name>API Endpoints</Name>
+        </DisplayString>
+        <DisplayString ElementID="Status.IO.ResourcePool.View">
+          <Name>Resource Pool</Name>
+        </DisplayString>
+        <DisplayString ElementID="Status.IO.ApiEndPoint">
+          <Name>Status.IO API Endpoint</Name>
+          <Description>Status.IO API Endpoint. Used to discover and monitor Status.IO Components and Containers for the status page</Description>
+        </DisplayString>
+        <DisplayString ElementID="Status.IO.ApiEndPoint" SubElementID="URL">
+          <Name>API URL</Name>
+          <Description>URL of the public status API EndPoint</Description>
+        </DisplayString>
+        <DisplayString ElementID="Status.IO.ApiEndPoint" SubElementID="Proxy">
+          <Name>Proxy</Name>
+          <Description>HTTP Proxy server to be used to connect to API Endpoint</Description>
+        </DisplayString>
+        <DisplayString ElementID="Status.IO.ApiEndPoint" SubElementID="ComponentNameRegEx">
+          <Name>Component Name Regular Expression</Name>
+          <Description>Regular expression that components must match to be included in discovery and monitoring</Description>
+        </DisplayString>
+        <DisplayString ElementID="Status.IO.ApiEndPoint" SubElementID="ContainerNameRegEx">
+          <Name>Container Name Regular Expression</Name>
+          <Description>Regular expression that containers must match to be included in discovery and monitoring</Description>
+        </DisplayString>
+        <DisplayString ElementID="Status.IO.MonitoredObject">
+          <Name>Status.IO Monitored Object</Name>
+          <Description>Base class for all Status.IO Monitored Objects</Description>
+        </DisplayString>
+        <DisplayString ElementID="Status.IO.MonitoredObject" SubElementID="Id">
+          <Name>Id</Name>
+          <Description>Id of Status.IO Object</Description>
+        </DisplayString>
+        <DisplayString ElementID="Status.IO.MonitoredObject" SubElementID="Name">
+          <Name>Name</Name>
+          <Description>Name of Status.IO Object</Description>
+        </DisplayString>
+        <DisplayString ElementID="Status.IO.Component">
+          <Name>Status.IO Component</Name>
+          <Description>Status.IO Component</Description>
+        </DisplayString>
+        <DisplayString ElementID="Status.IO.Container">
+          <Name>Status.IO Container</Name>
+          <Description>Status.IO Container</Description>
+        </DisplayString>
+        <DisplayString ElementID="Status.IO.ResourcePool">
+          <Name>Status.IO Monitoring Resource Pool</Name>
+          <Description>Resource Pool used to run Status.IO Discovery and Monitoring workflows</Description>
+        </DisplayString>
+        <DisplayString ElementID="Status.IO.ApiEndPointContainsComponent.Relationship">
+          <Name>Status.IO API Endpoint contains Component</Name>
+        </DisplayString>
+        <DisplayString ElementID="Status.IO.ApiEndPointContainsComponent.Relationship" SubElementID="EndPoint">
+          <Name>EndPoint</Name>
+        </DisplayString>
+        <DisplayString ElementID="Status.IO.ApiEndPointContainsComponent.Relationship" SubElementID="Component">
+          <Name>Component</Name>
+        </DisplayString>
+        <DisplayString ElementID="Status.IO.ComponentContainsContainer.Relationship">
+          <Name>Status.IO Component contains Container</Name>
+        </DisplayString>
+        <DisplayString ElementID="Status.IO.ComponentContainsContainer.Relationship" SubElementID="EndPoint">
+          <Name>EndPoint</Name>
+        </DisplayString>
+        <DisplayString ElementID="Status.IO.ComponentContainsContainer.Relationship" SubElementID="Container">
+          <Name>Container</Name>
+        </DisplayString>
+        <DisplayString ElementID="Status.IO.AddApiEndPoint.WriteAction">
+          <Name>Add Status.IO API Endpoint</Name>
+          <Description>Create Status.IO API Endpoint.</Description>
+        </DisplayString>
+        <DisplayString ElementID="Status.IO.AddApiEndPoint.WriteAction" SubElementID="DisplayName">
+          <Name>Display Name</Name>
+          <Description>Display Name for the API Endpoint.</Description>
+        </DisplayString>
+        <DisplayString ElementID="Status.IO.AddApiEndPoint.WriteAction" SubElementID="URL">
+          <Name>URL</Name>
+          <Description>URL of Endpoint.</Description>
+        </DisplayString>
+        <DisplayString ElementID="Status.IO.AddApiEndPoint.WriteAction" SubElementID="Proxy">
+          <Name>Proxy</Name>
+          <Description>Http proxy to use to connect to endpoint.</Description>
+        </DisplayString>
+        <DisplayString ElementID="Status.IO.AddApiEndPoint.WriteAction" SubElementID="ComponentNameRegEx">
+          <Name>Component Name Regular Expression</Name>
+          <Description>Regular expression that components must match to be included in discovery and monitoring</Description>
+        </DisplayString>
+        <DisplayString ElementID="Status.IO.AddApiEndPoint.WriteAction" SubElementID="ContainerNameRegEx">
+          <Name>Container Name Regular Expression</Name>
+          <Description>Regular expression that containers must match to be included in discovery and monitoring</Description>
+        </DisplayString>
+        <DisplayString ElementID="Status.IO.AddApiEndPoint.WriteAction" SubElementID="ManagementServer">
+          <Name>Management Server</Name>
+          <Description>Management Server to run the task on.</Description>
+        </DisplayString>
+        <DisplayString ElementID="Status.IO.RemoveApiEndPoint.WriteAction">
+          <Name>Remove Status.IO API Endpoint</Name>
+          <Description>Remove Status.IO API Endpoint.</Description>
+        </DisplayString>
+        <DisplayString ElementID="Status.IO.RemoveApiEndPoint.WriteAction" SubElementID="DisplayName">
+          <Name>Display Name</Name>
+          <Description>Display Name for the API Endpoint.</Description>
+        </DisplayString>
+        <DisplayString ElementID="Status.IO.RemoveApiEndPoint.WriteAction" SubElementID="URL">
+          <Name>URL</Name>
+          <Description>URL of Endpoint.</Description>
+        </DisplayString>
+        <DisplayString ElementID="Status.IO.RemoveApiEndPoint.WriteAction" SubElementID="Proxy">
+          <Name>Proxy</Name>
+          <Description>Http proxy to use to connect to endpoint.</Description>
+        </DisplayString>
+        <DisplayString ElementID="Status.IO.RemoveApiEndPoint.WriteAction" SubElementID="ComponentNameRegEx">
+          <Name>Component Name Regular Expression</Name>
+          <Description>Regular expression that components must match to be included in discovery and monitoring</Description>
+        </DisplayString>
+        <DisplayString ElementID="Status.IO.RemoveApiEndPoint.WriteAction" SubElementID="ContainerNameRegEx">
+          <Name>Container Name Regular Expression</Name>
+          <Description>Regular expression that containers must match to be included in discovery and monitoring</Description>
+        </DisplayString>
+        <DisplayString ElementID="Status.IO.RemoveApiEndPoint.WriteAction" SubElementID="ManagementServer">
+          <Name>Management Server</Name>
+          <Description>Management Server to run the task on.</Description>
+        </DisplayString>
+      </DisplayStrings>
+      <KnowledgeArticles>
+        <KnowledgeArticle ElementID="Status.IO" Visible="true">
+          <MamlContent>
+            <maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10">
+              <maml:title>Status.IO Monitoring</maml:title>
+              <maml:para>
+                Documentation and the latest version can be found on GitHub -<maml:navigationLink><maml:linkText>https://github.com/KeithRochester/Status.IO.</maml:linkText><maml:uri href="https://github.com/KeithRochester/Status.IO" /></maml:navigationLink>. 
+              </maml:para>
+              <maml:para>
+                If you have any questions or suggestions, please send me a message <maml:navigationLink><maml:linkText>keith.rochester@unit92.com</maml:linkText><maml:uri href="mailto:keith.rochester@unit92.com?subject=Standard%20Monitoring%20Framework" /></maml:navigationLink></maml:para>
+            </maml:section>
+          </MamlContent>
+        </KnowledgeArticle>
+      </KnowledgeArticles>
+    </LanguagePack>
+  </LanguagePacks>
+</ManagementPack>
