@@ -1,27 +1,24 @@
-﻿<ManagementPackFragment SchemaVersion="2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <TypeDefinitions>
+﻿<ManagementPackFragment SchemaVersion="2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema"><TypeDefinitions>
     <EntityTypes>
       <RelationshipTypes>
-        <RelationshipType ID="Status.IO.ApiEndPointContainsComponent.Relationship" Base="System!System.Containment" Abstract="false" Accessibility="Internal">
-          <Source ID="EndPoint" Type="Status.IO.ApiEndPoint" />
-          <Target ID="Component" Type="Status.IO.Component" />
+        <RelationshipType ID="Status.IO.ApiEndpointContainsComponent.Relationship" Accessibility="Internal" Abstract="false" Base="System!System.Containment">
+          <Source ID="Endpoint" MinCardinality="0" MaxCardinality="2147483647" Type="Status.IO.ApiEndpoint" />
+          <Target ID="Component" MinCardinality="0" MaxCardinality="2147483647" Type="Status.IO.Component" />
         </RelationshipType>
       </RelationshipTypes>
     </EntityTypes>
-  </TypeDefinitions>
-  <LanguagePacks>
+  </TypeDefinitions><LanguagePacks>
     <LanguagePack ID="ENU" IsDefault="true">
       <DisplayStrings>
-        <DisplayString ElementID="Status.IO.ApiEndPointContainsComponent.Relationship">
+        <DisplayString ElementID="Status.IO.ApiEndpointContainsComponent.Relationship">
           <Name>Status.IO API Endpoint contains Component</Name>
         </DisplayString>
-        <DisplayString ElementID="Status.IO.ApiEndPointContainsComponent.Relationship" SubElementID="EndPoint">
-          <Name>EndPoint</Name>
+        <DisplayString ElementID="Status.IO.ApiEndpointContainsComponent.Relationship" SubElementID="Endpoint">
+          <Name>Endpoint</Name>
         </DisplayString>
-        <DisplayString ElementID="Status.IO.ApiEndPointContainsComponent.Relationship" SubElementID="Component">
+        <DisplayString ElementID="Status.IO.ApiEndpointContainsComponent.Relationship" SubElementID="Component">
           <Name>Component</Name>
         </DisplayString>
       </DisplayStrings>
     </LanguagePack>
-  </LanguagePacks>
-</ManagementPackFragment>
+  </LanguagePacks></ManagementPackFragment>

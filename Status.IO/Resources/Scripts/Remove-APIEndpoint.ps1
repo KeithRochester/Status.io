@@ -30,7 +30,7 @@ $MG = Get-SCOMManagementGroup
 
 
 $EntityClass = Get-SCOMClass -Name System.Entity
-$APIEndPointClass = Get-SCOMClass -Name Status.IO.ApiEndPoint
+$ApiEndpointClass = Get-SCOMClass -Name Status.IO.ApiEndpoint
 
 $Connector = Get-SCOMConnector -DisplayName "Status.IO Connector"
 if(!$Connector){
@@ -41,13 +41,22 @@ if(!$Connector){
 
 $DiscoveryData = New-Object Microsoft.EnterpriseManagement.ConnectorFramework.IncrementalDiscoveryData
 
-$APIEndPoint = New-Object Microsoft.EnterpriseManagement.Common.CreatableEnterpriseManagementObject($mg,$APIEndPointClass)
+$ApiEndpoint = New-Object Microsoft.EnterpriseManagement.Common.CreatableEnterpriseManagementObject($mg,$ApiEndpointClass)
 
-$APIEndPoint[$APIEndPointClass,"URL"].Value = $URL
-$APIEndPoint[$APIEndPointClass,"ComponentNameRegEx"].Value = $ComponentNameRegEx
-$APIEndPoint[$APIEndPointClass,"ContainerNameRegEx"].Value = $ContainerNameRegEx
-$APIEndPoint[$APIEndPointClass,"Proxy"].Value = $Proxy
-$APIEndPoint[$EntityClass,"DisplayName"].Value = $DisplayName
+$ApiEndpoint[$ApiEndpointClass,"URL"].Value = $URL
+$ApiEndpoint[$ApiEndpointClass,"ComponentNameRegEx"].Value = $ComponentNameRegEx
+$ApiEndpoint[$ApiEndpointClass,"ContainerNameRegEx"].Value = $ContainerNameRegEx
+$ApiEndpoint[$ApiEndpointClass,"Proxy"].Value = $Proxy
+$ApiEndpoint[$EntityClass,"DisplayName"].Value = $DisplayName
 
-$DiscoveryData.Remove($APIEndPoint)
-$DiscoveryData.Commit($Connector)
+$DiscoveryData.Remove($ApiEndpoint)
+try{
+    $DiscoveryData.Commit($Connector)
+    $Success = $true
+}catch{
+    $Success = $false
+}
+if($Success){
+    Write-host "Removed Status.IO API Endpoint: $DisplayName"
+    $ApiEndpoint.Values | FT @{L='Property';E={$_.Type}},Value
+}

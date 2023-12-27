@@ -17,37 +17,82 @@ Param(
 
 <#
 $DisplayName = "Testing"
-$URL = 'https://9498199887151372.hostedstatus.com/1.0/status/5d849b1c02e65b3ec45369d4'
+$URL = 'https://9498199887151372.hostedstatus.com/1.0/status/51f6f2088643809b7200000d'
 $Proxy = "N/A"
 $ComponentNameRegEx = 'United Kingdom'
 $ContainerNameRegEx = '.'
 $ManagementServer = '.'
 #>
 
-Add-PSSnapin Microsoft.EnterpriseManagement.OperationsManager.Client
-New-SCOMManagementGroupConnection -ComputerName $ManagementServer
-$MG = Get-SCOMManagementGroup
+# Drop any proxy that doesn't match ^http
+if($Proxy -match '^http'){
+    $ProxyUseDefaultCredentials = $True
+    # Request parameters for splatting
+    $RequestParameters = @{
+        'Uri' = $URL 
+        'UseBasicParsing' = $True
+        'UseDefaultCredentials' = $True
+        'Proxy' = $Proxy
+        'ProxyUseDefaultCredentials' = $ProxyUseDefaultCredentials
+    }
+}else{
+# Request parameters for splatting
+    $RequestParameters = @{
+        'Uri' = $URL 
+        'UseBasicParsing' = $True
+        'UseDefaultCredentials' = $true
+    }
+}
+
+try{
+    $Request = Invoke-WebRequest @RequestParameters
+    $RequestObjects = $Request.Content | ConvertFrom-Json    
+}catch{
+    $Request = $null
+    $Success = $false
+}
+
+if($Request -ne $null){
+
+    Add-PSSnapin Microsoft.EnterpriseManagement.OperationsManager.Client
+    New-SCOMManagementGroupConnection -ComputerName $ManagementServer
+    $MG = Get-SCOMManagementGroup
 
 
-$EntityClass = Get-SCOMClass -Name System.Entity
-$APIEndPointClass = Get-SCOMClass -Name Status.IO.ApiEndPoint
+    $EntityClass = Get-SCOMClass -Name System.Entity
+    $ApiEndpointClass = Get-SCOMClass -Name Status.IO.ApiEndpoint
 
-$Connector = Get-SCOMConnector -DisplayName "Status.IO Connector"
-if(!$Connector){
-    Add-SCOMConnector -Name "Status.IO Connector" -DisplayName "Status.IO Connector" -Description "Connector used to submit discovery data"
     $Connector = Get-SCOMConnector -DisplayName "Status.IO Connector"
+    if(!$Connector){
+        Add-SCOMConnector -Name "Status.IO Connector" -DisplayName "Status.IO Connector" -Description "Connector used to submit discovery data"
+        $Connector = Get-SCOMConnector -DisplayName "Status.IO Connector"
+        }
+
+
+    $DiscoveryData = New-Object Microsoft.EnterpriseManagement.ConnectorFramework.IncrementalDiscoveryData
+
+    $ApiEndpoint = New-Object Microsoft.EnterpriseManagement.Common.CreatableEnterpriseManagementObject($mg,$ApiEndpointClass)
+
+    $ApiEndpoint[$ApiEndpointClass,"URL"].Value = $URL
+    $ApiEndpoint[$ApiEndpointClass,"ComponentNameRegEx"].Value = $ComponentNameRegEx
+    $ApiEndpoint[$ApiEndpointClass,"ContainerNameRegEx"].Value = $ContainerNameRegEx
+    $ApiEndpoint[$ApiEndpointClass,"Proxy"].Value = $Proxy
+    $ApiEndpoint[$EntityClass,"DisplayName"].Value = $DisplayName
+
+    $DiscoveryData.Add($ApiEndpoint)
+
+    try{
+        $DiscoveryData.Commit($Connector)
+        $Success = $true
+    }catch{
+        $Success = $false
     }
 
+}
 
-$DiscoveryData = New-Object Microsoft.EnterpriseManagement.ConnectorFramework.IncrementalDiscoveryData
-
-$APIEndPoint = New-Object Microsoft.EnterpriseManagement.Common.CreatableEnterpriseManagementObject($mg,$APIEndPointClass)
-
-$APIEndPoint[$APIEndPointClass,"URL"].Value = $URL
-$APIEndPoint[$APIEndPointClass,"ComponentNameRegEx"].Value = $ComponentNameRegEx
-$APIEndPoint[$APIEndPointClass,"ContainerNameRegEx"].Value = $ContainerNameRegEx
-$APIEndPoint[$APIEndPointClass,"Proxy"].Value = $Proxy
-$APIEndPoint[$EntityClass,"DisplayName"].Value = $DisplayName
-
-$DiscoveryData.Add($APIEndPoint)
-$DiscoveryData.Commit($Connector)
+if($Success){
+    Write-host "Added Status.IO API Endpoint: $DisplayName"
+    $ApiEndpoint.Values | FT @{L='Property';E={$_.Type}},Value
+}else{
+    Write-Host "Unabled to add Endpoint: `n $Error"
+}

@@ -1,0 +1,190 @@
+﻿<ManagementPackFragment SchemaVersion="2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema"><TypeDefinitions>
+    <MonitorTypes>
+      <UnitMonitorType ID="Status.IO.Endpoint.SingleObject.StatusCode.MonitorType" Accessibility="Public">
+        <MonitorTypeStates>
+          <MonitorTypeState ID="Healthy" NoDetection="false" />
+          <MonitorTypeState ID="Warning" NoDetection="false" />
+          <MonitorTypeState ID="Critical" NoDetection="false" />
+        </MonitorTypeStates>
+        <Configuration>
+          <xsd:element minOccurs="1" name="Frequency" type="xsd:integer" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element minOccurs="1" name="ScheduleStartTime" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element minOccurs="1" name="ScheduleEndTime" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element minOccurs="1" name="ScheduleDays" type="xsd:int" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element minOccurs="0" name="SyncTime" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element minOccurs="1" name="ApiEndpointId" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element minOccurs="1" name="URL" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element minOccurs="1" name="Proxy" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element minOccurs="1" name="ComponentNameRegEx" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element minOccurs="1" name="ContainerNameRegEx" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element minOccurs="1" name="ScriptTimeoutSeconds" type="xsd:int" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element minOccurs="1" name="ObjectType" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+            <xsd:simpleType>
+              <xsd:restriction base="xsd:string">
+                <xsd:enumeration value="Container" />
+                <xsd:enumeration value="Component" />
+                <xsd:enumeration value="Endpoint" />
+              </xsd:restriction>
+            </xsd:simpleType>
+          </xsd:element>
+          <xsd:element minOccurs="1" name="ObjectId" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element minOccurs="1" name="WarningStatusCodeRegEx" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element minOccurs="1" name="CriticalStatusCodeRegEx" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+        </Configuration>
+        <OverrideableParameters>
+          <OverrideableParameter ID="Frequency" Selector="$Config/Frequency$" ParameterType="int" />
+          <OverrideableParameter ID="ScheduleStartTime" Selector="$Config/ScheduleStartTime$" ParameterType="string" />
+          <OverrideableParameter ID="ScheduleEndTime" Selector="$Config/ScheduleEndTime$" ParameterType="string" />
+          <OverrideableParameter ID="ScheduleDays" Selector="$Config/ScheduleDays$" ParameterType="int" />
+          <OverrideableParameter ID="SyncTime" Selector="$Config/SyncTime$" ParameterType="string" />
+          <OverrideableParameter ID="ScriptTimeoutSeconds" Selector="$Config/ScriptTimeoutSeconds$" ParameterType="int" />
+          <OverrideableParameter ID="WarningStatusCodeRegEx" Selector="$Config/WarningStatusCodeRegEx$" ParameterType="string" />
+          <OverrideableParameter ID="CriticalStatusCodeRegEx" Selector="$Config/CriticalStatusCodeRegEx$" ParameterType="string" />
+        </OverrideableParameters>
+        <MonitorImplementation>
+          <MemberModules>
+            <DataSource ID="DS" TypeID="Status.IO.Endpoint.SingleObject.PropertyBag.DataSource">
+              <Frequency>$Config/Frequency$</Frequency>
+              <ScheduleStartTime>$Config/ScheduleStartTime$</ScheduleStartTime>
+              <ScheduleEndTime>$Config/ScheduleEndTime$</ScheduleEndTime>
+              <ScheduleDays>$Config/ScheduleDays$</ScheduleDays>
+              <SyncTime>$Config/SyncTime$</SyncTime>
+              <ApiEndpointId>$Config/ApiEndpointId$</ApiEndpointId>
+              <URL>$Config/URL$</URL>
+              <Proxy>$Config/Proxy$</Proxy>
+              <ComponentNameRegEx>$Config/ComponentNameRegEx$</ComponentNameRegEx>
+              <ContainerNameRegEx>$Config/ContainerNameRegEx$</ContainerNameRegEx>
+              <ScriptTimeoutSeconds>$Config/ScriptTimeoutSeconds$</ScriptTimeoutSeconds>
+              <ObjectType>$Config/ObjectType$</ObjectType>
+              <ObjectId>$Config/ObjectId$</ObjectId>
+            </DataSource>
+            <ConditionDetection ID="CDCritical" TypeID="System!System.ExpressionFilter">
+              <Expression>
+                <RegExExpression>
+                  <ValueExpression>
+                    <XPathQuery Type="String">Property[@Name='$Config/ObjectType$_status_code']</XPathQuery>
+                  </ValueExpression>
+                  <Operator>MatchesRegularExpression</Operator>
+                  <Pattern>$Config/CriticalStatusCodeRegEx$</Pattern>
+                </RegExExpression>
+              </Expression>
+            </ConditionDetection>
+            <ConditionDetection ID="CDWarning" TypeID="System!System.ExpressionFilter">
+              <Expression>
+                <RegExExpression>
+                  <ValueExpression>
+                    <XPathQuery Type="String">Property[@Name='$Config/ObjectType$_status_code']</XPathQuery>
+                  </ValueExpression>
+                  <Operator>MatchesRegularExpression</Operator>
+                  <Pattern>$Config/WarningStatusCodeRegEx$</Pattern>
+                </RegExExpression>
+              </Expression>
+            </ConditionDetection>
+            <ConditionDetection ID="CDHealthy" TypeID="System!System.ExpressionFilter">
+              <Expression>
+                <And>
+                  <Expression>
+                    <Not>
+                      <Expression>
+                        <RegExExpression>
+                          <ValueExpression>
+                            <XPathQuery Type="String">Property[@Name='$Config/ObjectType$_status_code']</XPathQuery>
+                          </ValueExpression>
+                          <Operator>MatchesRegularExpression</Operator>
+                          <Pattern>$Config/WarningStatusCodeRegEx$</Pattern>
+                        </RegExExpression>
+                      </Expression>
+                    </Not>
+                  </Expression>
+                  <Expression>
+                    <Not>
+                      <Expression>
+                        <RegExExpression>
+                          <ValueExpression>
+                            <XPathQuery Type="String">Property[@Name='$Config/ObjectType$_status_code']</XPathQuery>
+                          </ValueExpression>
+                          <Operator>MatchesRegularExpression</Operator>
+                          <Pattern>$Config/CriticalStatusCodeRegEx$</Pattern>
+                        </RegExExpression>
+                      </Expression>
+                    </Not>
+                  </Expression>
+                </And>
+              </Expression>
+            </ConditionDetection>
+          </MemberModules>
+          <RegularDetections>
+            <RegularDetection MonitorTypeStateID="Healthy">
+              <Node ID="CDHealthy">
+                <Node ID="DS" />
+              </Node>
+            </RegularDetection>
+            <RegularDetection MonitorTypeStateID="Critical">
+              <Node ID="CDCritical">
+                <Node ID="DS" />
+              </Node>
+            </RegularDetection>
+            <RegularDetection MonitorTypeStateID="Warning">
+              <Node ID="CDWarning">
+                <Node ID="DS" />
+              </Node>
+            </RegularDetection>
+          </RegularDetections>
+        </MonitorImplementation>
+      </UnitMonitorType>
+    </MonitorTypes>
+  </TypeDefinitions><LanguagePacks>
+    <LanguagePack ID="ENU" IsDefault="true">
+      <DisplayStrings>
+        <DisplayString ElementID="Status.IO.Endpoint.SingleObject.StatusCode.MonitorType">
+          <Name>Status IO Endpoint Single Object Status Code Monitor Type</Name>
+          <Description>Monitor type compares status_code of object with regular expressions for warning and critical states</Description>
+        </DisplayString>
+        <DisplayString ElementID="Status.IO.Endpoint.SingleObject.StatusCode.MonitorType" SubElementID="Frequency">
+          <Name>Frequency (Seconds)</Name>
+          <Description>Frequency in seconds that the workflow will run</Description>
+        </DisplayString>
+        <DisplayString ElementID="Status.IO.Endpoint.SingleObject.StatusCode.MonitorType" SubElementID="ScheduleDays">
+          <Name>Schedule Days (Bit Mask)</Name>
+          <Description>
+            Bit mask for the days of the week that workflow should run
+
+            Sunday = 1
+            Monday = 2
+            Tuesday = 4
+            Wednesday = 8
+            Thursday = 16
+            Friday = 32
+            Saturday = 64
+
+            Sunday to Saturday  = 127
+            Monday to Friday = 62
+          </Description>
+        </DisplayString>
+        <DisplayString ElementID="Status.IO.Endpoint.SingleObject.StatusCode.MonitorType" SubElementID="ScheduleStartTime">
+          <Name>Schedule Start Time</Name>
+          <Description>Time of day that workflow will run from e.g. 00:00, 08:00, etc...</Description>
+        </DisplayString>
+        <DisplayString ElementID="Status.IO.Endpoint.SingleObject.StatusCode.MonitorType" SubElementID="ScheduleEndTime">
+          <Name>Schedule End Time</Name>
+          <Description>Time of day that workflow will stop running e.g. 23:59, 17:00, etc...</Description>
+        </DisplayString>
+        <DisplayString ElementID="Status.IO.Endpoint.SingleObject.StatusCode.MonitorType" SubElementID="SyncTime">
+          <Name>Sync Time</Name>
+          <Description>Simple sync time used by the schedule for the workflow e.g. 00:00, 08:15, 17:00 etc...</Description>
+        </DisplayString>
+        <DisplayString ElementID="Status.IO.Endpoint.SingleObject.StatusCode.MonitorType" SubElementID="ScriptTimeoutSeconds">
+          <Name>Shell Script Timeout (Seconds)</Name>
+          <Description>Timeout (seconds) for the shell script that gets API Endpoint status data</Description>
+        </DisplayString>
+        <DisplayString ElementID="Status.IO.Endpoint.SingleObject.StatusCode.MonitorType" SubElementID="CriticalStatusCodeRegEx">
+          <Name>Critical Status Code Regular Expression</Name>
+          <Description>Status codes that match the regular expression will generate critical health state</Description>
+        </DisplayString>
+        <DisplayString ElementID="Status.IO.Endpoint.SingleObject.StatusCode.MonitorType" SubElementID="WarningStatusCodeRegEx">
+          <Name>Warning Status Code Regular Expression</Name>
+          <Description>Status codes that match the regular expression will generate Warning health state</Description>
+        </DisplayString>
+      </DisplayStrings>
+    </LanguagePack>
+  </LanguagePacks></ManagementPackFragment>

@@ -1,18 +1,15 @@
-﻿<ManagementPackFragment SchemaVersion="2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <TypeDefinitions>
+﻿<ManagementPackFragment SchemaVersion="2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema"><TypeDefinitions>
     <EntityTypes>
       <ClassTypes>
-
-        <ClassType ID="Status.IO.ResourcePool" Accessibility="Internal" Abstract="false" Base="SC!Microsoft.SystemCenter.ManagementServicePool" Hosted="false" Singleton="true" />
+        <ClassType ID="Status.IO.ResourcePool" Accessibility="Internal" Abstract="false" Base="SC!Microsoft.SystemCenter.ManagementServicePool" Hosted="false" Singleton="true" Extension="false" />
       </ClassTypes>
     </EntityTypes>
-  </TypeDefinitions>
-  <Monitoring>
+  </TypeDefinitions><Monitoring>
     <Discoveries>
-      <Discovery ID="Status.IO.MonitorObjectsManagedbyResourcePool.Discovery" Target="Status.IO.ResourcePool" Enabled="true" Remotable="true" Priority="Normal">
+      <Discovery ID="Status.IO.MonitoredObjectsManagedbyResourcePool.Discovery" Enabled="true" Target="Status.IO.ResourcePool" ConfirmDelivery="false" Remotable="true" Priority="Normal">
         <Category>Discovery</Category>
         <DiscoveryTypes>
-          <DiscoveryRelationship TypeID="SC!Microsoft.SystemCenter.ManagementActionPointShouldManageEntity"/>
+          <DiscoveryRelationship TypeID="SC!Microsoft.SystemCenter.ManagementActionPointShouldManageEntity" />
         </DiscoveryTypes>
         <DataSource ID="DS" TypeID="SC!Microsoft.SystemCenter.GroupPopulator">
           <RuleId>$MPElement$</RuleId>
@@ -23,23 +20,36 @@
               <RelationshipClass>$MPElement[Name="SC!Microsoft.SystemCenter.ManagementActionPointShouldManageEntity"]$</RelationshipClass>
             </MembershipRule>
             <MembershipRule>
-              <MonitoringClass>$MPElement[Name="Status.IO.ApiEndPoint"]$</MonitoringClass>
+              <MonitoringClass>$MPElement[Name="Status.IO.ApiEndpoint"]$</MonitoringClass>
               <RelationshipClass>$MPElement[Name="SC!Microsoft.SystemCenter.ManagementActionPointShouldManageEntity"]$</RelationshipClass>
             </MembershipRule>
           </MembershipRules>
         </DataSource>
       </Discovery>
     </Discoveries>
-  </Monitoring>
-  <LanguagePacks>
+  </Monitoring><LanguagePacks>
     <LanguagePack ID="ENU" IsDefault="true">
       <DisplayStrings>
-
         <DisplayString ElementID="Status.IO.ResourcePool">
           <Name>Status.IO Monitoring Resource Pool</Name>
           <Description>Resource Pool used to run Status.IO Discovery and Monitoring workflows</Description>
         </DisplayString>
+        <DisplayString ElementID="Status.IO.MonitoredObjectsManagedbyResourcePool.Discovery">
+          <Name>Status.IO Monitored Objects Managed by Resource Pool Discovery</Name>
+          <Description>Discovers managed by relationship for Status.IO monitored objects and the Status.IO Resource Pool</Description>
+        </DisplayString>
       </DisplayStrings>
+      <KnowledgeArticles>
+        <KnowledgeArticle ElementID="Status.IO.MonitoredObjectsManagedbyResourcePool.Discovery" Visible="true">
+          <MamlContent>
+            <maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10">
+              <maml:title>Summary</maml:title>
+              <maml:para>
+                Uses group population to discover managed by relationship for Status.IO monitored objects and the Status.IO Resource Pool. 
+              </maml:para>
+            </maml:section>
+          </MamlContent>
+        </KnowledgeArticle>
+      </KnowledgeArticles>
     </LanguagePack>
-  </LanguagePacks>
-</ManagementPackFragment>
+  </LanguagePacks></ManagementPackFragment>

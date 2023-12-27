@@ -1,7 +1,7 @@
 ﻿<ManagementPackFragment SchemaVersion="2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <TypeDefinitions>
     <ModuleTypes>
-      <WriteActionModuleType ID="Status.IO.RemoveApiEndPoint.WriteAction" Accessibility="Public" Batching="false">
+      <WriteActionModuleType ID="Status.IO.RemoveApiEndpoint.WriteAction" Accessibility="Public" Batching="false" RunAs="Status.IO.Profile">
         <Configuration>
           <xsd:element minOccurs="1" name="DisplayName" type="xsd:string" />
           <xsd:element minOccurs="1" name="URL" type="xsd:string" />
@@ -12,11 +12,6 @@
           <xsd:element minOccurs="1" name="TimeoutSeconds" type="xsd:int"  />
         </Configuration>
         <OverrideableParameters>
-          <OverrideableParameter ID="DisplayName" Selector="$Config/DisplayName$" ParameterType="string" />
-          <OverrideableParameter ID="URL" Selector="$Config/URL$" ParameterType="string" />
-          <OverrideableParameter ID="Proxy" Selector="$Config/Proxy$" ParameterType="string" />
-          <OverrideableParameter ID="ComponentNameRegEx" Selector="$Config/ComponentNameRegEx$" ParameterType="string" />
-          <OverrideableParameter ID="ContainerNameRegEx" Selector="$Config/ContainerNameRegEx$" ParameterType="string" />
           <OverrideableParameter ID="ManagementServer" Selector="$Config/ManagementServer$" ParameterType="string" />
           <OverrideableParameter ID="TimeoutSeconds" Selector="$Config/TimeoutSeconds$" ParameterType="int" />
         </OverrideableParameters>
@@ -24,8 +19,8 @@
           <Composite>
             <MemberModules>
               <WriteAction ID="Script" TypeID="Windows!Microsoft.Windows.PowerShellWriteAction">
-                <ScriptName>Remove-APIEndpoint.ps1</ScriptName>
-                <ScriptBody>$IncludeFileContent/Resources/Scripts/Remove-APIEndpoint.ps1$</ScriptBody>
+                <ScriptName>Remove-ApiEndpoint.ps1</ScriptName>
+                <ScriptBody>$IncludeFileContent/Resources/Scripts/Remove-ApiEndpoint.ps1$</ScriptBody>
                 <Parameters>
                   <Parameter>
                     <Name>DisplayName</Name>
@@ -69,33 +64,17 @@
     <LanguagePack ID="ENU" IsDefault="true">
       <DisplayStrings>
 
-        <DisplayString ElementID="Status.IO.RemoveApiEndPoint.WriteAction">
+        <DisplayString ElementID="Status.IO.RemoveApiEndpoint.WriteAction">
           <Name>Remove Status.IO API Endpoint</Name>
           <Description>Remove Status.IO API Endpoint.</Description>
         </DisplayString>
-        <DisplayString ElementID="Status.IO.RemoveApiEndPoint.WriteAction" SubElementID="DisplayName">
-          <Name>Display Name</Name>
-          <Description>Display Name for the API Endpoint.</Description>
-        </DisplayString>
-        <DisplayString ElementID="Status.IO.RemoveApiEndPoint.WriteAction" SubElementID="URL">
-          <Name>URL</Name>
-          <Description>URL of Endpoint.</Description>
-        </DisplayString>
-        <DisplayString ElementID="Status.IO.RemoveApiEndPoint.WriteAction" SubElementID="Proxy">
-          <Name>Proxy</Name>
-          <Description>Http proxy to use to connect to endpoint.</Description>
-        </DisplayString>
-        <DisplayString ElementID="Status.IO.RemoveApiEndPoint.WriteAction" SubElementID="ComponentNameRegEx">
-          <Name>Component Name Regular Expression</Name>
-          <Description>Regular expression that components must match to be included in discovery and monitoring</Description>
-        </DisplayString>
-        <DisplayString ElementID="Status.IO.RemoveApiEndPoint.WriteAction" SubElementID="ContainerNameRegEx">
-          <Name>Container Name Regular Expression</Name>
-          <Description>Regular expression that containers must match to be included in discovery and monitoring</Description>
-        </DisplayString>
-        <DisplayString ElementID="Status.IO.RemoveApiEndPoint.WriteAction" SubElementID="ManagementServer">
+        <DisplayString ElementID="Status.IO.RemoveApiEndpoint.WriteAction" SubElementID="ManagementServer">
           <Name>Management Server</Name>
           <Description>Management Server to run the task on.</Description>
+        </DisplayString>
+        <DisplayString ElementID="Status.IO.RemoveApiEndpoint.WriteAction" SubElementID="TimeoutSeconds">
+          <Name>Timeout Seconds</Name>
+          <Description>Script Timeout Seconds</Description>
         </DisplayString>
       </DisplayStrings>
     </LanguagePack>

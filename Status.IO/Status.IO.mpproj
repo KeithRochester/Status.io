@@ -51,6 +51,20 @@
     </ManagementPackReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Health Model\Discovery\Discoveries.mptg.mpx">
+      <SubType>Code</SubType>
+      <DependentUpon>Health Model\Discovery\Discoveries.mptg</DependentUpon>
+    </Compile>
+    <Compile Include="Health Model\Discovery\Discovery Knowledge Articles.mpx">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Health Model\Monitors\Unit Monitor Knowledge Articles.mpx">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Health Model\Monitors\Unit Monitors.mptg.mpx">
+      <SubType>Code</SubType>
+      <DependentUpon>Health Model\Monitors\Unit Monitors.mptg</DependentUpon>
+    </Compile>
     <Compile Include="Health Model\Tasks\Agent Tasks.mptg.mpx">
       <SubType>Code</SubType>
       <DependentUpon>Health Model\Tasks\Agent Tasks.mptg</DependentUpon>
@@ -64,10 +78,19 @@
     <Compile Include="Presentation\Image Resources.mpx">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Presentation\Views\Components.mpx">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Presentation\Views\Containers.mpx">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Presentation\Views\Endpoints.mpx">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Presentation\Views\Resource Pool.mpx">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Secure References\Run As Profile.mpx">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Service Model\Classes\API End point.mpx">
@@ -79,10 +102,25 @@
     <Compile Include="Service Model\Classes\Resource Pool.mpx">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Service Model\Relationships\API EndPoint Contains Component.mpx">
+    <Compile Include="Service Model\Relationships\API Endpoint Contains Component.mpx">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Service Model\Relationships\Component Contains Container.mpx">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Type Library\Module Types\Data Sources\Api Endpoint Component Discovery Data Source.mpx">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Type Library\Module Types\Data Sources\Api Endpoint Container Discovery Data Source.mpx">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Type Library\Module Types\Data Sources\Api Endpoint Single Object Data Source.mpx">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Type Library\Module Types\Monitor Types\Object Status Code Monitor Type.mpx">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Type Library\Module Types\Probe Actions\Get API EndPoint Status Probe Action.mpx">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Type Library\Module Types\Write Actions\Add API Endpoint Write Action.mpx">
@@ -94,7 +132,10 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Health Model" />
+    <Folder Include="Health Model\Discovery" />
+    <Folder Include="Health Model\Monitors" />
     <Folder Include="Health Model\Tasks" />
+    <Folder Include="Secure References" />
     <Folder Include="Presentation" />
     <Folder Include="Presentation\Folders" />
     <Folder Include="Presentation\Views" />
@@ -106,13 +147,25 @@
     <Folder Include="Service Model\Classes" />
     <Folder Include="Service Model\Relationships" />
     <Folder Include="Type Library\Module Types" />
+    <Folder Include="Type Library\Module Types\Data Sources" />
+    <Folder Include="Type Library\Module Types\Monitor Types" />
+    <Folder Include="Type Library\Module Types\Probe Actions" />
     <Folder Include="Type Library\Module Types\Write Actions" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Resources\Scripts\Get-APIEndPointStatus.ps1" />
     <EmbeddedResource Include="Resources\Scripts\New-APIEndpoint.ps1" />
     <EmbeddedResource Include="Resources\Scripts\Remove-APIEndpoint.ps1" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Health Model\Discovery\Discoveries.mptg">
+      <SubType>Content</SubType>
+      <Generator>FragmentGenerator</Generator>
+    </Content>
+    <Content Include="Health Model\Monitors\Unit Monitors.mptg">
+      <SubType>Content</SubType>
+      <Generator>FragmentGenerator</Generator>
+    </Content>
     <Content Include="Health Model\Tasks\Agent Tasks.mptg">
       <SubType>Content</SubType>
       <Generator>FragmentGenerator</Generator>

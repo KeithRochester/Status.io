@@ -1,0 +1,255 @@
+﻿<ManagementPackFragment SchemaVersion="2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema"><TypeDefinitions>
+    <ModuleTypes>
+      <DataSourceModuleType ID="Status.IO.Container.PropertyBag.Discovery.DataSource" Accessibility="Internal" RunAs="Status.IO.Profile" Batching="false">
+        <Configuration>
+          <xsd:element minOccurs="1" name="Frequency" type="xsd:integer" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element minOccurs="1" name="ScheduleStartTime" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element minOccurs="1" name="ScheduleEndTime" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element minOccurs="1" name="ScheduleDays" type="xsd:int" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element minOccurs="0" name="SyncTime" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element minOccurs="1" name="ApiEndpointName" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element minOccurs="1" name="ApiEndpointId" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element minOccurs="1" name="URL" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element minOccurs="1" name="Proxy" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element minOccurs="1" name="ComponentNameRegEx" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element minOccurs="1" name="ContainerNameRegEx" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element minOccurs="1" name="ScriptTimeoutSeconds" type="xsd:int" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+        </Configuration>
+        <OverrideableParameters>
+          <OverrideableParameter ID="Frequency" Selector="$Config/Frequency$" ParameterType="int" />
+          <OverrideableParameter ID="ScheduleStartTime" Selector="$Config/ScheduleStartTime$" ParameterType="string" />
+          <OverrideableParameter ID="ScheduleEndTime" Selector="$Config/ScheduleEndTime$" ParameterType="string" />
+          <OverrideableParameter ID="ScheduleDays" Selector="$Config/ScheduleDays$" ParameterType="int" />
+          <OverrideableParameter ID="SyncTime" Selector="$Config/SyncTime$" ParameterType="string" />
+          <OverrideableParameter ID="ScriptTimeoutSeconds" Selector="$Config/ScriptTimeoutSeconds$" ParameterType="int" />
+        </OverrideableParameters>
+        <ModuleImplementation Isolation="Any">
+          <Composite>
+            <MemberModules>
+              <DataSource ID="SimpleScheduler" TypeID="System!System.Discovery.Scheduler">
+                <Scheduler>
+                  <SimpleReccuringSchedule>
+                    <Interval>$Config/Frequency$</Interval>
+                    <SyncTime>$Config/SyncTime$</SyncTime>
+                  </SimpleReccuringSchedule>
+                  <ExcludeDates />
+                </Scheduler>
+              </DataSource>
+              <ProbeAction ID="Probe" TypeID="Status.IO.Endpoint.PropertyBag.ProbeAction">
+                <URL>$Config/URL$</URL>
+                <Proxy>$Config/Proxy$</Proxy>
+                <ComponentNameRegEx>$Config/ComponentNameRegEx$</ComponentNameRegEx>
+                <ContainerNameRegEx>$Config/ContainerNameRegEx$</ContainerNameRegEx>
+                <ScriptTimeoutSeconds>$Config/ScriptTimeoutSeconds$</ScriptTimeoutSeconds>
+                <ApiEndpointId>$Config/ApiEndpointId$</ApiEndpointId>
+              </ProbeAction>
+              <ConditionDetection ID="SchedulerFilter" TypeID="System!System.SchedulerFilter">
+                <SchedulerFilter>
+                  <ProcessDataMode>OnSchedule</ProcessDataMode>
+                  <Schedule>
+                    <WeeklySchedule>
+                      <Windows>
+                        <Daily>
+                          <Start>$Config/ScheduleStartTime$</Start>
+                          <End>$Config/ScheduleEndTime$</End>
+                          <DaysOfWeekMask>$Config/ScheduleDays$</DaysOfWeekMask>
+                        </Daily>
+                      </Windows>
+                    </WeeklySchedule>
+                    <ExcludeDates />
+                  </Schedule>
+                  <UseCurrentTime>true</UseCurrentTime>
+                </SchedulerFilter>
+              </ConditionDetection>
+              <ConditionDetection ID="ExcludeEndpoint" TypeID="System!System.ExpressionFilter">
+                <Expression>
+                  <Not>
+                    <Expression>
+                      <Exists>
+                        <ValueExpression>
+                          <XPathQuery Type="String">Property[@Name="Endpoint_id"]</XPathQuery>
+                        </ValueExpression>
+                      </Exists>
+                    </Expression>
+                  </Not>
+                </Expression>
+              </ConditionDetection>
+              <ConditionDetection ID="EndpointandContainer" TypeID="System!System.Discovery.ClassAndRelationshipSnapshotDataMapper">
+                <ClassId>$MPElement[Name="Status.IO.Container"]$</ClassId>
+                <ClassInstanceSettings>
+                  <Settings>
+                    <Setting>
+                      <Name>$MPElement[Name="Status.IO.MonitoredObject"]/Id$</Name>
+                      <Value>$Data/Property[@Name='Container_id']$</Value>
+                    </Setting>
+                    <Setting>
+                      <Name>$MPElement[Name="System!System.Entity"]/DisplayName$</Name>
+                      <Value>$Data/Property[@Name='Container_name']$</Value>
+                    </Setting>
+                    <Setting>
+                      <Name>$MPElement[Name="Status.IO.MonitoredObject"]/ApiEndpointName$</Name>
+                      <Value>$Config/ApiEndpointName$</Value>
+                    </Setting>
+                    <Setting>
+                      <Name>$MPElement[Name="Status.IO.MonitoredObject"]/ApiEndpointId$</Name>
+                      <Value>$Config/ApiEndpointId$</Value>
+                    </Setting>
+                    <Setting>
+                      <Name>$MPElement[Name="Status.IO.MonitoredObject"]/URL$</Name>
+                      <Value>$Config/URL$</Value>
+                    </Setting>
+                    <Setting>
+                      <Name>$MPElement[Name="Status.IO.MonitoredObject"]/Proxy$</Name>
+                      <Value>$Config/Proxy$</Value>
+                    </Setting>
+                    <Setting>
+                      <Name>$MPElement[Name="Status.IO.MonitoredObject"]/ComponentNameRegEx$</Name>
+                      <Value>$Config/ComponentNameRegEx$</Value>
+                    </Setting>
+                    <Setting>
+                      <Name>$MPElement[Name="Status.IO.MonitoredObject"]/ContainerNameRegEx$</Name>
+                      <Value>$Config/ContainerNameRegEx$</Value>
+                    </Setting>
+                  </Settings>
+                </ClassInstanceSettings>
+                <RelationshipId>$MPElement[Name="Status.IO.ComponentContainsContainer.Relationship"]$</RelationshipId>
+                <RelationshipInstanceSettings />
+                <SourceTypeId>$MPElement[Name="Status.IO.Component"]$</SourceTypeId>
+                <SourceRoleSettings>
+                  <Settings>
+                    <Setting>
+                      <Name>$MPElement[Name="Status.IO.MonitoredObject"]/Id$</Name>
+                      <Value>$Data/Property[@Name='Component_id']$</Value>
+                    </Setting>
+                    <Setting>
+                      <Name>$MPElement[Name="System!System.Entity"]/DisplayName$</Name>
+                      <Value>$Data/Property[@Name='Component_name']$</Value>
+                    </Setting>
+                    <Setting>
+                      <Name>$MPElement[Name="Status.IO.MonitoredObject"]/ApiEndpointName$</Name>
+                      <Value>$Config/ApiEndpointName$</Value>
+                    </Setting>
+                    <Setting>
+                      <Name>$MPElement[Name="Status.IO.MonitoredObject"]/ApiEndpointId$</Name>
+                      <Value>$Config/ApiEndpointId$</Value>
+                    </Setting>
+                    <Setting>
+                      <Name>$MPElement[Name="Status.IO.MonitoredObject"]/URL$</Name>
+                      <Value>$Config/URL$</Value>
+                    </Setting>
+                    <Setting>
+                      <Name>$MPElement[Name="Status.IO.MonitoredObject"]/Proxy$</Name>
+                      <Value>$Config/Proxy$</Value>
+                    </Setting>
+                    <Setting>
+                      <Name>$MPElement[Name="Status.IO.MonitoredObject"]/ComponentNameRegEx$</Name>
+                      <Value>$Config/ComponentNameRegEx$</Value>
+                    </Setting>
+                    <Setting>
+                      <Name>$MPElement[Name="Status.IO.MonitoredObject"]/ContainerNameRegEx$</Name>
+                      <Value>$Config/ContainerNameRegEx$</Value>
+                    </Setting>
+                  </Settings>
+                </SourceRoleSettings>
+                <TargetTypeId>$MPElement[Name="Status.IO.Container"]$</TargetTypeId>
+                <TargetRoleSettings>
+                  <Settings>
+                    <Setting>
+                      <Name>$MPElement[Name="Status.IO.MonitoredObject"]/Id$</Name>
+                      <Value>$Data/Property[@Name='Container_id']$</Value>
+                    </Setting>
+                    <Setting>
+                      <Name>$MPElement[Name="System!System.Entity"]/DisplayName$</Name>
+                      <Value>$Data/Property[@Name='Container_name']$</Value>
+                    </Setting>
+                    <Setting>
+                      <Name>$MPElement[Name="Status.IO.MonitoredObject"]/ApiEndpointName$</Name>
+                      <Value>$Config/ApiEndpointName$</Value>
+                    </Setting>
+                    <Setting>
+                      <Name>$MPElement[Name="Status.IO.MonitoredObject"]/ApiEndpointId$</Name>
+                      <Value>$Config/ApiEndpointId$</Value>
+                    </Setting>
+                    <Setting>
+                      <Name>$MPElement[Name="Status.IO.MonitoredObject"]/URL$</Name>
+                      <Value>$Config/URL$</Value>
+                    </Setting>
+                    <Setting>
+                      <Name>$MPElement[Name="Status.IO.MonitoredObject"]/Proxy$</Name>
+                      <Value>$Config/Proxy$</Value>
+                    </Setting>
+                    <Setting>
+                      <Name>$MPElement[Name="Status.IO.MonitoredObject"]/ComponentNameRegEx$</Name>
+                      <Value>$Config/ComponentNameRegEx$</Value>
+                    </Setting>
+                    <Setting>
+                      <Name>$MPElement[Name="Status.IO.MonitoredObject"]/ContainerNameRegEx$</Name>
+                      <Value>$Config/ContainerNameRegEx$</Value>
+                    </Setting>
+                  </Settings>
+                </TargetRoleSettings>
+              </ConditionDetection>
+            </MemberModules>
+            <Composition>
+              <Node ID="EndpointandContainer">
+                <Node ID="ExcludeEndpoint">
+                  <Node ID="Probe">
+                    <Node ID="SchedulerFilter">
+                      <Node ID="SimpleScheduler" />
+                    </Node>
+                  </Node>
+                </Node>
+              </Node>
+            </Composition>
+          </Composite>
+        </ModuleImplementation>
+        <OutputType>System!System.Discovery.Data</OutputType>
+      </DataSourceModuleType>
+    </ModuleTypes>
+  </TypeDefinitions><LanguagePacks>
+    <LanguagePack ID="ENU" IsDefault="true">
+      <DisplayStrings>
+        <DisplayString ElementID="Status.IO.Container.PropertyBag.Discovery.DataSource">
+          <Name>Status IO Container Property Bag Discovery Data Source</Name>
+          <Description>Uses PowerShell script probe to generate Status IO Container discovery data</Description>
+        </DisplayString>
+        <DisplayString ElementID="Status.IO.Container.PropertyBag.Discovery.DataSource" SubElementID="Frequency">
+          <Name>Frequency (Seconds)</Name>
+          <Description>Frequency in seconds that the workflow will run</Description>
+        </DisplayString>
+        <DisplayString ElementID="Status.IO.Container.PropertyBag.Discovery.DataSource" SubElementID="ScheduleDays">
+          <Name>Schedule Days (Bit Mask)</Name>
+          <Description>
+            Bit mask for the days of the week that workflow should run
+
+            Sunday = 1
+            Monday = 2
+            Tuesday = 4
+            Wednesday = 8
+            Thursday = 16
+            Friday = 32
+            Saturday = 64
+
+            Sunday to Saturday  = 127
+            Monday to Friday = 62
+          </Description>
+        </DisplayString>
+        <DisplayString ElementID="Status.IO.Container.PropertyBag.Discovery.DataSource" SubElementID="ScheduleStartTime">
+          <Name>Schedule Start Time</Name>
+          <Description>Time of day that workflow will run from e.g. 00:00, 08:00, etc...</Description>
+        </DisplayString>
+        <DisplayString ElementID="Status.IO.Container.PropertyBag.Discovery.DataSource" SubElementID="ScheduleEndTime">
+          <Name>Schedule End Time</Name>
+          <Description>Time of day that workflow will stop running e.g. 23:59, 17:00, etc...</Description>
+        </DisplayString>
+        <DisplayString ElementID="Status.IO.Container.PropertyBag.Discovery.DataSource" SubElementID="SyncTime">
+          <Name>Sync Time</Name>
+          <Description>Simple sync time used by the schedule for the workflow e.g. 00:00, 08:15, 17:00 etc...</Description>
+        </DisplayString>
+        <DisplayString ElementID="Status.IO.Container.PropertyBag.Discovery.DataSource" SubElementID="ScriptTimeoutSeconds">
+          <Name>Shell Script Timeout (Seconds)</Name>
+          <Description>Timeout (seconds) for the shell script that gets API Endpoint status data</Description>
+        </DisplayString>
+      </DisplayStrings>
+    </LanguagePack>
+  </LanguagePacks></ManagementPackFragment>

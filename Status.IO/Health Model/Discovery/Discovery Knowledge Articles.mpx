@@ -1,0 +1,56 @@
+﻿<ManagementPackFragment SchemaVersion="2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <LanguagePacks>
+    <LanguagePack ID="ENU" IsDefault="true">
+      <KnowledgeArticles>
+        <KnowledgeArticle ElementID="Status.IO.Container.Discovery" Visible="true">
+          <MamlContent>
+            <maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10">
+              <maml:title>Summary</maml:title>
+              <maml:para>
+                Uses PowerShell script to invoke a web request to the Status.IO public API status endpoint and discovers containers
+              </maml:para>
+            </maml:section>
+            <maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10">
+              <maml:title>Details</maml:title>
+              <maml:table>
+                <maml:row>
+                  <maml:entry>
+                    <maml:para>Frequency (Seconds</maml:para>
+                  </maml:entry>
+                  <maml:entry>
+                    <maml:para>14400</maml:para>
+                  </maml:entry>
+                </maml:row>               
+              </maml:table>
+              <maml:para> </maml:para>
+            </maml:section>
+          </MamlContent>
+        </KnowledgeArticle>
+        <KnowledgeArticle ElementID="Status.IO.Component.Discovery" Visible="true">
+          <MamlContent>
+            <maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10">
+              <maml:title>Summary</maml:title>
+              <maml:para>
+                Uses PowerShell script to invoke a web request to the Status.IO public API status endpoint and discovers components
+              </maml:para>
+            </maml:section>
+            <maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10">
+              <maml:title>Details</maml:title>
+              <maml:table>
+                <maml:row>
+                  <maml:entry>
+                    <maml:para>Frequency (Seconds)</maml:para>
+                  </maml:entry>
+                  <maml:entry>
+                    <maml:para>14400</maml:para>
+                  </maml:entry>
+                </maml:row>
+              </maml:table>
+              <maml:para> </maml:para>
+            </maml:section>
+          </MamlContent>
+        </KnowledgeArticle>
+      </KnowledgeArticles>
+    </LanguagePack>
+  </LanguagePacks>
+</ManagementPackFragment>

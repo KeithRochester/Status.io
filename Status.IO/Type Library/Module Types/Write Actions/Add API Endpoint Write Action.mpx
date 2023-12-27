@@ -1,7 +1,7 @@
 ﻿<ManagementPackFragment SchemaVersion="2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <TypeDefinitions>
     <ModuleTypes>
-      <WriteActionModuleType ID="Status.IO.AddApiEndPoint.WriteAction" Accessibility="Public" Batching="false">
+      <WriteActionModuleType ID="Status.IO.AddApiEndpoint.WriteAction" Accessibility="Public" Batching="false" RunAs="Status.IO.Profile">
         <Configuration>
           <xsd:element minOccurs="1" name="DisplayName" type="xsd:string" />
           <xsd:element minOccurs="1" name="URL" type="xsd:string" />
@@ -24,8 +24,8 @@
           <Composite>
             <MemberModules>
               <WriteAction ID="Script" TypeID="Windows!Microsoft.Windows.PowerShellWriteAction">
-                <ScriptName>New-APIEndpoint.ps1</ScriptName>
-                <ScriptBody>$IncludeFileContent/Resources/Scripts/New-APIEndpoint.ps1$</ScriptBody>
+                <ScriptName>New-ApiEndpoint.ps1</ScriptName>
+                <ScriptBody>$IncludeFileContent/Resources/Scripts/New-ApiEndpoint.ps1$</ScriptBody>
                 <Parameters>
                   <Parameter>
                     <Name>DisplayName</Name>
@@ -69,33 +69,37 @@
     <LanguagePack ID="ENU" IsDefault="true">
       <DisplayStrings>
 
-        <DisplayString ElementID="Status.IO.AddApiEndPoint.WriteAction">
+        <DisplayString ElementID="Status.IO.AddApiEndpoint.WriteAction">
           <Name>Add Status.IO API Endpoint</Name>
           <Description>Create Status.IO API Endpoint.</Description>
         </DisplayString>
-        <DisplayString ElementID="Status.IO.AddApiEndPoint.WriteAction" SubElementID="DisplayName">
+        <DisplayString ElementID="Status.IO.AddApiEndpoint.WriteAction" SubElementID="DisplayName">
           <Name>Display Name</Name>
           <Description>Display Name for the API Endpoint.</Description>
         </DisplayString>
-        <DisplayString ElementID="Status.IO.AddApiEndPoint.WriteAction" SubElementID="URL">
+        <DisplayString ElementID="Status.IO.AddApiEndpoint.WriteAction" SubElementID="URL">
           <Name>URL</Name>
           <Description>URL of Endpoint.</Description>
         </DisplayString>
-        <DisplayString ElementID="Status.IO.AddApiEndPoint.WriteAction" SubElementID="Proxy">
+        <DisplayString ElementID="Status.IO.AddApiEndpoint.WriteAction" SubElementID="Proxy">
           <Name>Proxy</Name>
           <Description>Http proxy to use to connect to endpoint.</Description>
         </DisplayString>
-        <DisplayString ElementID="Status.IO.AddApiEndPoint.WriteAction" SubElementID="ComponentNameRegEx">
+        <DisplayString ElementID="Status.IO.AddApiEndpoint.WriteAction" SubElementID="ComponentNameRegEx">
           <Name>Component Name Regular Expression</Name>
           <Description>Regular expression that components must match to be included in discovery and monitoring</Description>
         </DisplayString>
-        <DisplayString ElementID="Status.IO.AddApiEndPoint.WriteAction" SubElementID="ContainerNameRegEx">
+        <DisplayString ElementID="Status.IO.AddApiEndpoint.WriteAction" SubElementID="ContainerNameRegEx">
           <Name>Container Name Regular Expression</Name>
           <Description>Regular expression that containers must match to be included in discovery and monitoring</Description>
         </DisplayString>
-        <DisplayString ElementID="Status.IO.AddApiEndPoint.WriteAction" SubElementID="ManagementServer">
+        <DisplayString ElementID="Status.IO.AddApiEndpoint.WriteAction" SubElementID="ManagementServer">
           <Name>Management Server</Name>
           <Description>Management Server to run the task on.</Description>
+        </DisplayString>
+        <DisplayString ElementID="Status.IO.AddApiEndpoint.WriteAction" SubElementID="TimeoutSeconds">
+          <Name>Timeout Seconds</Name>
+          <Description>Script Timeout Seconds</Description>
         </DisplayString>
       </DisplayStrings>
     </LanguagePack>

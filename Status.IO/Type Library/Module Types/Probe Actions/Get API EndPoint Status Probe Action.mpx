@@ -1,0 +1,68 @@
+﻿<ManagementPackFragment SchemaVersion="2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema"><TypeDefinitions>
+    <ModuleTypes>
+      <ProbeActionModuleType ID="Status.IO.Endpoint.PropertyBag.ProbeAction" Accessibility="Public" Batching="false" PassThrough="false" RunAs="Status.IO.Profile">
+        <Configuration>
+          <xsd:element minOccurs="1" name="URL" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element minOccurs="1" name="Proxy" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element minOccurs="1" name="ComponentNameRegEx" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element minOccurs="1" name="ContainerNameRegEx" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element minOccurs="1" name="ScriptTimeoutSeconds" type="xsd:int" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element minOccurs="1" name="ApiEndpointId" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+        </Configuration>
+        <OverrideableParameters>
+          <OverrideableParameter ID="ScriptTimeoutSeconds" Selector="$Config/ScriptTimeoutSeconds$" ParameterType="int" />
+        </OverrideableParameters>
+        <ModuleImplementation Isolation="Any">
+          <Composite>
+            <MemberModules>
+              <ProbeAction ID="PSScript" TypeID="Windows!Microsoft.Windows.PowerShellPropertyBagProbe">
+                <ScriptName>Get-ApiEndpointStatus.ps1</ScriptName>
+                <ScriptBody>$IncludeFileContent/Resources/Scripts/Get-ApiEndpointStatus.ps1$</ScriptBody>
+                <Parameters>
+                  <Parameter>
+                    <Name>URL</Name>
+                    <Value>$Config/URL$</Value>
+                  </Parameter>
+                  <Parameter>
+                    <Name>Proxy</Name>
+                    <Value>$Config/Proxy$</Value>
+                  </Parameter>
+                  <Parameter>
+                    <Name>ComponentNameRegEx</Name>
+                    <Value>$Config/ComponentNameRegEx$</Value>
+                  </Parameter>
+                  <Parameter>
+                    <Name>ContainerNameRegEx</Name>
+                    <Value>$Config/ContainerNameRegEx$</Value>
+                  </Parameter>
+                  <Parameter>
+                    <Name>ApiEndpointId</Name>
+                    <Value>$Config/ApiEndpointId$</Value>
+                  </Parameter>
+                </Parameters>
+                <TimeoutSeconds>$Config/ScriptTimeoutSeconds$</TimeoutSeconds>
+              </ProbeAction>
+            </MemberModules>
+            <Composition>
+              <Node ID="PSScript" />
+            </Composition>
+          </Composite>
+        </ModuleImplementation>
+        <OutputType>System!System.PropertyBagData</OutputType>
+        <InputType>System!System.BaseData</InputType>
+      </ProbeActionModuleType>
+    </ModuleTypes>
+  </TypeDefinitions><LanguagePacks>
+    <LanguagePack ID="ENU" IsDefault="true">
+      <DisplayStrings>
+        <DisplayString ElementID="Status.IO.Endpoint.PropertyBag.ProbeAction">
+          <Name>Status IO Endpoint Property Bag Probe Action</Name>
+          <Description>PowerShell script probe of Status.IO API Endpoint</Description>
+        </DisplayString>
+        <DisplayString ElementID="Status.IO.Endpoint.PropertyBag.ProbeAction" SubElementID="ScriptTimeoutSeconds">
+          <Name>Shell Script Timeout (Seconds)</Name>
+          <Description>Timeout (seconds) for the shell script that gets Status.IO API Endpoint status data</Description>
+        </DisplayString>
+      </DisplayStrings>
+    </LanguagePack>
+  </LanguagePacks></ManagementPackFragment>

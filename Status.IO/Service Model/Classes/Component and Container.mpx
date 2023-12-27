@@ -1,26 +1,25 @@
-﻿<ManagementPackFragment SchemaVersion="2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <TypeDefinitions>
+﻿<ManagementPackFragment SchemaVersion="2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema"><TypeDefinitions>
     <EntityTypes>
       <ClassTypes>
-        <ClassType ID="Status.IO.MonitoredObject" Abstract="true" Accessibility="Internal" Base="System!System.Entity" Hosted="false" Singleton="false">
-          <Property ID="Id" Key ="true"  Type="string"/>
-          <Property ID="Name" Key ="false"  Type="string"/>
+        <ClassType ID="Status.IO.MonitoredObject" Accessibility="Internal" Abstract="true" Base="System!System.Entity" Hosted="false" Singleton="false" Extension="false">
+          <Property ID="Id" Type="string" AutoIncrement="false" Key="true" CaseSensitive="false" MaxLength="256" MinLength="0" Required="false" Scale="0" />
+          <Property ID="ApiEndpointName" Type="string" AutoIncrement="false" Key="false" CaseSensitive="false" MaxLength="256" MinLength="0" Required="false" Scale="0" />
+          <Property ID="ApiEndpointId" Type="string" AutoIncrement="false" Key="true" CaseSensitive="false" MaxLength="256" MinLength="0" Required="false" Scale="0" />
+          <Property ID="URL" Type="string" AutoIncrement="false" Key="true" CaseSensitive="false" MaxLength="256" MinLength="0" Required="false" Scale="0" />
+          <Property ID="Proxy" Type="string" AutoIncrement="false" Key="false" CaseSensitive="false" MaxLength="256" MinLength="0" Required="false" Scale="0" />
+          <Property ID="ComponentNameRegEx" Type="string" AutoIncrement="false" Key="true" CaseSensitive="false" MaxLength="256" MinLength="0" Required="false" Scale="0" />
+          <Property ID="ContainerNameRegEx" Type="string" AutoIncrement="false" Key="true" CaseSensitive="false" MaxLength="256" MinLength="0" Required="false" Scale="0" />
         </ClassType>
-        <ClassType ID="Status.IO.Component" Abstract="false" Accessibility="Internal" Base="Status.IO.MonitoredObject" Hosted="false" Singleton="false" />
-        <ClassType ID="Status.IO.Container" Abstract="false" Accessibility="Internal" Base="Status.IO.MonitoredObject" Hosted="false" Singleton="false" />
+        <ClassType ID="Status.IO.Component" Accessibility="Public" Abstract="false" Base="Status.IO.MonitoredObject" Hosted="false" Singleton="false" Extension="false" />
+        <ClassType ID="Status.IO.Container" Accessibility="Public" Abstract="false" Base="Status.IO.MonitoredObject" Hosted="false" Singleton="false" Extension="false" />
       </ClassTypes>
     </EntityTypes>
-
-
-    
-  </TypeDefinitions>
-  <Presentation>
+  </TypeDefinitions><Presentation>
     <ImageReferences>
-      <ImageReference ElementID="Status.IO.MonitoredObject" ImageID="Status.IO.Diagram.Icon"/>
-      <ImageReference ElementID="Status.IO.MonitoredObject" ImageID="Status.IO.Small.Icon"/>
+      <ImageReference ElementID="Status.IO.MonitoredObject" ImageID="Status.IO.Diagram.Icon" />
+      <ImageReference ElementID="Status.IO.MonitoredObject" ImageID="Status.IO.Small.Icon" />
     </ImageReferences>
-  </Presentation>
-  <LanguagePacks>
+  </Presentation><LanguagePacks>
     <LanguagePack ID="ENU" IsDefault="true">
       <DisplayStrings>
         <DisplayString ElementID="Status.IO.MonitoredObject">
@@ -31,22 +30,38 @@
           <Name>Id</Name>
           <Description>Id of Status.IO Object</Description>
         </DisplayString>
-        <DisplayString ElementID="Status.IO.MonitoredObject" SubElementID="Name">
-          <Name>Name</Name>
-          <Description>Name of Status.IO Object</Description>
+        <DisplayString ElementID="Status.IO.MonitoredObject" SubElementID="ApiEndpointName">
+          <Name>API Endpoint Name</Name>
+          <Description>Name of the API Endpoint</Description>
         </DisplayString>
-        
+        <DisplayString ElementID="Status.IO.MonitoredObject" SubElementID="ApiEndpointId">
+          <Name>API Endpoint</Name>
+          <Description>Id of API Endpoint</Description>
+        </DisplayString>
+        <DisplayString ElementID="Status.IO.MonitoredObject" SubElementID="URL">
+          <Name>API URL</Name>
+          <Description>URL of the public status API Endpoint</Description>
+        </DisplayString>
+        <DisplayString ElementID="Status.IO.MonitoredObject" SubElementID="Proxy">
+          <Name>Proxy</Name>
+          <Description>HTTP Proxy server to be used to connect to API Endpoint</Description>
+        </DisplayString>
+        <DisplayString ElementID="Status.IO.MonitoredObject" SubElementID="ComponentNameRegEx">
+          <Name>Component Name Regular Expression</Name>
+          <Description>Regular expression that components must match to be included in discovery and monitoring</Description>
+        </DisplayString>
+        <DisplayString ElementID="Status.IO.MonitoredObject" SubElementID="ContainerNameRegEx">
+          <Name>Container Name Regular Expression</Name>
+          <Description>Regular expression that containers must match to be included in discovery and monitoring</Description>
+        </DisplayString>
         <DisplayString ElementID="Status.IO.Component">
           <Name>Status.IO Component</Name>
           <Description>Status.IO Component</Description>
         </DisplayString>
-
         <DisplayString ElementID="Status.IO.Container">
           <Name>Status.IO Container</Name>
           <Description>Status.IO Container</Description>
-        </DisplayString>        
-      
+        </DisplayString>
       </DisplayStrings>
     </LanguagePack>
-  </LanguagePacks>
-</ManagementPackFragment>
+  </LanguagePacks></ManagementPackFragment>

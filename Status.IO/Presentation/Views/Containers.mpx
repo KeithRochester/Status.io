@@ -1,7 +1,7 @@
 ﻿<ManagementPackFragment SchemaVersion="2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Presentation>
     <Views>
-      <View ID="Status.IO.ApiEndpoint.View" Accessibility="Public" Enabled="true" Target="Status.IO.ApiEndpoint" TypeID="SC!Microsoft.SystemCenter.StateViewType" Visible="true">
+      <View ID="Status.IO.Container.View" Accessibility="Public" Enabled="true" Target="Status.IO.Container" TypeID="SC!Microsoft.SystemCenter.StateViewType" Visible="true">
         <Category>Operations</Category>
         <Criteria>
           <InMaintenanceMode>false</InMaintenanceMode>
@@ -9,7 +9,7 @@
         <Presentation>
           <ColumnInfo Index="0" SortIndex="0" Width="100" Grouped="false" Sorted="true" IsSortable="true" Visible="true" SortOrder="Descending">
             <Name>State</Name>
-            <Id>Status.IO.ApiEndpoint</Id>
+            <Id>Status.IO.Container</Id>
           </ColumnInfo>
           <ColumnInfo Index="1" SortIndex="-1" Width="100" Grouped="false" Sorted="false" IsSortable="true" Visible="true" SortOrder="Ascending">
             <Name>Maintenance Mode</Name>
@@ -20,34 +20,30 @@
             <Id>Name</Id>
           </ColumnInfo>
           <ColumnInfo Index="3" SortIndex="-1" Width="100" Grouped="false" Sorted="false" IsSortable="true" Visible="true" SortOrder="Ascending">
-            <Name>URL</Name>
-            <Id>Status.IO.ApiEndpoint/URL</Id>
+            <Name>ID</Name>
+            <Id>Status.IO.MonitoredObject/Id</Id>
           </ColumnInfo>
           <ColumnInfo Index="4" SortIndex="-1" Width="100" Grouped="false" Sorted="false" IsSortable="true" Visible="true" SortOrder="Ascending">
-            <Name>Proxy</Name>
-            <Id>Status.IO.ApiEndpoint/Proxy</Id>
+            <Name>API Endpoint Name</Name>
+            <Id>Status.IO.MonitoredObject/ApiEndpointName</Id>
           </ColumnInfo>
           <ColumnInfo Index="5" SortIndex="-1" Width="100" Grouped="false" Sorted="false" IsSortable="true" Visible="true" SortOrder="Ascending">
-            <Name>Component Name Regular Expression</Name>
-            <Id>Status.IO.ApiEndpoint/ComponentNameRegEx</Id>
-          </ColumnInfo>
-          <ColumnInfo Index="5" SortIndex="-1" Width="100" Grouped="false" Sorted="false" IsSortable="true" Visible="true" SortOrder="Ascending">
-            <Name>Container Name Regular Expression</Name>
-            <Id>Status.IO.ApiEndpoint/ContainerNameRegEx</Id>
+            <Name>API End point id</Name>
+            <Id>Status.IO.MonitoredObject/ApiEndpointId</Id>
           </ColumnInfo>
         </Presentation>
         <Target />
       </View>
     </Views>
     <FolderItems>
-      <FolderItem ElementID="Status.IO.ApiEndpoint.View" ID="Status.IO.ApiEndpoint.View.FolderItem" Folder="Status.IO.Folder" />
+      <FolderItem ElementID="Status.IO.Container.View" ID="Status.IO.Container.View.FolderItem" Folder="Status.IO.Folder" />
     </FolderItems>
   </Presentation>
   <LanguagePacks>
     <LanguagePack ID="ENU" IsDefault="true">
       <DisplayStrings>
-        <DisplayString ElementID="Status.IO.ApiEndpoint.View">
-          <Name>API Endpoints</Name>
+        <DisplayString ElementID="Status.IO.Container.View">
+          <Name>Containers</Name>
         </DisplayString>
       </DisplayStrings>
     </LanguagePack>

@@ -1,0 +1,133 @@
+<TemplateGroup>
+  <Instances>
+    <Instance ID="Instance60ff4525649540bc94f6b788acb56caa" Type="Microsoft.SystemCenter.Authoring.CodeGeneration.Monitoring.UnitMonitor" Version="1.0.0.0">
+      <UnitMonitorConfig xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <MonitorType>Status.IO.Endpoint.SingleObject.StatusCode.MonitorType</MonitorType>
+        <MonitorConfig>&lt;Frequency&gt;300&lt;/Frequency&gt;&lt;ScheduleStartTime&gt;00:00&lt;/ScheduleStartTime&gt;&lt;ScheduleEndTime&gt;23:59&lt;/ScheduleEndTime&gt;&lt;ScheduleDays&gt;127&lt;/ScheduleDays&gt;&lt;SyncTime /&gt;&lt;ApiEndpointId&gt;$Target/Property[Type="Status.IO.MonitoredObject"]/ApiEndpointId$&lt;/ApiEndpointId&gt;&lt;URL&gt;$Target/Property[Type="Status.IO.MonitoredObject"]/URL$&lt;/URL&gt;&lt;Proxy&gt;$Target/Property[Type="Status.IO.MonitoredObject"]/Proxy$&lt;/Proxy&gt;&lt;ComponentNameRegEx&gt;$Target/Property[Type="Status.IO.MonitoredObject"]/ComponentNameRegEx$&lt;/ComponentNameRegEx&gt;&lt;ContainerNameRegEx&gt;$Target/Property[Type="Status.IO.MonitoredObject"]/ContainerNameRegEx$&lt;/ContainerNameRegEx&gt;&lt;ScriptTimeoutSeconds&gt;60&lt;/ScriptTimeoutSeconds&gt;&lt;ObjectType&gt;Component&lt;/ObjectType&gt;&lt;ObjectId&gt;$Target/Property[Type="Status.IO.MonitoredObject"]/Id$&lt;/ObjectId&gt;&lt;WarningStatusCodeRegEx&gt;^2.*|^3.*|^4.*|^999$&lt;/WarningStatusCodeRegEx&gt;&lt;CriticalStatusCodeRegEx&gt;^5.*|^6.*&lt;/CriticalStatusCodeRegEx&gt;</MonitorConfig>
+        <MonitorOperationalStates>
+          <OperationalState>
+            <OperationalStateId>Healthy</OperationalStateId>
+            <OperationalStateDisplayName>Healthy</OperationalStateDisplayName>
+            <MonitorTypeStateId>Healthy</MonitorTypeStateId>
+            <HealthState>Success</HealthState>
+          </OperationalState>
+          <OperationalState>
+            <OperationalStateId>Warning</OperationalStateId>
+            <OperationalStateDisplayName>Warning</OperationalStateDisplayName>
+            <MonitorTypeStateId>Warning</MonitorTypeStateId>
+            <HealthState>Warning</HealthState>
+          </OperationalState>
+          <OperationalState>
+            <OperationalStateId>Critical</OperationalStateId>
+            <OperationalStateDisplayName>Critical</OperationalStateDisplayName>
+            <MonitorTypeStateId>Critical</MonitorTypeStateId>
+            <HealthState>Error</HealthState>
+          </OperationalState>
+        </MonitorOperationalStates>
+        <ParentMonitor>Health!System.Health.AvailabilityState</ParentMonitor>
+        <Accessibility>Public</Accessibility>
+        <Id>Component.Status.Monitor</Id>
+        <DisplayName>Component Status</DisplayName>
+        <Description>Check that the Status code for the component is not an unhealthy value</Description>
+        <Target>Status.IO.Component</Target>
+        <Enabled>true</Enabled>
+        <Category>AvailabilityHealth</Category>
+        <Remotable>true</Remotable>
+        <Priority>Normal</Priority>
+        <AlertAutoResolve>true</AlertAutoResolve>
+        <AlertOnState>Warning</AlertOnState>
+        <AlertPriority>Normal</AlertPriority>
+        <AlertSeverity>MatchMonitorHealth</AlertSeverity>
+        <AlertName>Status.IO Component Status Code</AlertName>
+        <AlertDescription>The component status code for component [$Target/Property[Type="System!System.Entity"]/DisplayName$] is [$Data/Context/Property[@Name='Component_status_code']$] - [$Data/Context/Property[@Name='Component_status']$]</AlertDescription>
+        <ConfirmDelivery>false</ConfirmDelivery>
+      </UnitMonitorConfig>
+    </Instance>
+    <Instance ID="Instance908aa928bebf4409bed9b0c6a6a48249" Type="Microsoft.SystemCenter.Authoring.CodeGeneration.Monitoring.UnitMonitor" Version="1.0.0.0">
+      <UnitMonitorConfig xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <MonitorType>Status.IO.Endpoint.SingleObject.StatusCode.MonitorType</MonitorType>
+        <MonitorConfig>&lt;Frequency&gt;300&lt;/Frequency&gt;&lt;ScheduleStartTime&gt;00:00&lt;/ScheduleStartTime&gt;&lt;ScheduleEndTime&gt;23:59&lt;/ScheduleEndTime&gt;&lt;ScheduleDays&gt;127&lt;/ScheduleDays&gt;&lt;SyncTime /&gt;&lt;ApiEndpointId&gt;$Target/Id$&lt;/ApiEndpointId&gt;&lt;URL&gt;$Target/Property[Type="Status.IO.ApiEndpoint"]/URL$&lt;/URL&gt;&lt;Proxy&gt;$Target/Property[Type="Status.IO.ApiEndpoint"]/Proxy$&lt;/Proxy&gt;&lt;ComponentNameRegEx&gt;$Target/Property[Type="Status.IO.ApiEndpoint"]/ComponentNameRegEx$&lt;/ComponentNameRegEx&gt;&lt;ContainerNameRegEx&gt;$Target/Property[Type="Status.IO.ApiEndpoint"]/ContainerNameRegEx$&lt;/ContainerNameRegEx&gt;&lt;ScriptTimeoutSeconds&gt;60&lt;/ScriptTimeoutSeconds&gt;&lt;ObjectType&gt;Endpoint&lt;/ObjectType&gt;&lt;ObjectId&gt;$Target/Id$&lt;/ObjectId&gt;&lt;WarningStatusCodeRegEx&gt;^2.*|^3.*|^4.*|^999$&lt;/WarningStatusCodeRegEx&gt;&lt;CriticalStatusCodeRegEx&gt;^5.*|^6.*&lt;/CriticalStatusCodeRegEx&gt;</MonitorConfig>
+        <MonitorOperationalStates>
+          <OperationalState>
+            <OperationalStateId>Healthy</OperationalStateId>
+            <OperationalStateDisplayName>Healthy</OperationalStateDisplayName>
+            <MonitorTypeStateId>Healthy</MonitorTypeStateId>
+            <HealthState>Success</HealthState>
+          </OperationalState>
+          <OperationalState>
+            <OperationalStateId>Warning</OperationalStateId>
+            <OperationalStateDisplayName>Warning</OperationalStateDisplayName>
+            <MonitorTypeStateId>Warning</MonitorTypeStateId>
+            <HealthState>Warning</HealthState>
+          </OperationalState>
+          <OperationalState>
+            <OperationalStateId>Critical</OperationalStateId>
+            <OperationalStateDisplayName>Critical</OperationalStateDisplayName>
+            <MonitorTypeStateId>Critical</MonitorTypeStateId>
+            <HealthState>Error</HealthState>
+          </OperationalState>
+        </MonitorOperationalStates>
+        <ParentMonitor>Health!System.Health.AvailabilityState</ParentMonitor>
+        <Accessibility>Public</Accessibility>
+        <Id>ApiEndpoint.Status.Monitor</Id>
+        <DisplayName>API Endpoint Status</DisplayName>
+        <Description>Check that the Status code for the API Endpoint is not an unhealthy value</Description>
+        <Target>Status.IO.ApiEndpoint</Target>
+        <Enabled>true</Enabled>
+        <Category>AvailabilityHealth</Category>
+        <Remotable>true</Remotable>
+        <Priority>Normal</Priority>
+        <AlertAutoResolve>true</AlertAutoResolve>
+        <AlertOnState>Warning</AlertOnState>
+        <AlertPriority>Normal</AlertPriority>
+        <AlertSeverity>MatchMonitorHealth</AlertSeverity>
+        <AlertName>Status.IO API Endpoint Status Code</AlertName>
+        <AlertDescription>The API Endpoint status code for API Endpoint [$Target/Property[Type="System!System.Entity"]/DisplayName$] is [$Data/Context/Property[@Name='Endpoint_status_code']$] - [$Data/Context/Property[@Name='Endpoint_status']$]</AlertDescription>
+        <ConfirmDelivery>false</ConfirmDelivery>
+      </UnitMonitorConfig>
+    </Instance>
+    <Instance ID="Instance814cc5618e67447483a0753f5dcb2db9" Type="Microsoft.SystemCenter.Authoring.CodeGeneration.Monitoring.UnitMonitor" Version="1.0.0.0">
+      <UnitMonitorConfig xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <MonitorType>Status.IO.Endpoint.SingleObject.StatusCode.MonitorType</MonitorType>
+        <MonitorConfig>&lt;Frequency&gt;300&lt;/Frequency&gt;&lt;ScheduleStartTime&gt;00:00&lt;/ScheduleStartTime&gt;&lt;ScheduleEndTime&gt;23:59&lt;/ScheduleEndTime&gt;&lt;ScheduleDays&gt;127&lt;/ScheduleDays&gt;&lt;SyncTime /&gt;&lt;ApiEndpointId&gt;$Target/Property[Type="Status.IO.MonitoredObject"]/ApiEndpointId$&lt;/ApiEndpointId&gt;&lt;URL&gt;$Target/Property[Type="Status.IO.MonitoredObject"]/URL$&lt;/URL&gt;&lt;Proxy&gt;$Target/Property[Type="Status.IO.MonitoredObject"]/Proxy$&lt;/Proxy&gt;&lt;ComponentNameRegEx&gt;$Target/Property[Type="Status.IO.MonitoredObject"]/ComponentNameRegEx$&lt;/ComponentNameRegEx&gt;&lt;ContainerNameRegEx&gt;$Target/Property[Type="Status.IO.MonitoredObject"]/ContainerNameRegEx$&lt;/ContainerNameRegEx&gt;&lt;ScriptTimeoutSeconds&gt;60&lt;/ScriptTimeoutSeconds&gt;&lt;ObjectType&gt;Container&lt;/ObjectType&gt;&lt;ObjectId&gt;$Target/Property[Type="Status.IO.MonitoredObject"]/Id$&lt;/ObjectId&gt;&lt;WarningStatusCodeRegEx&gt;^2.*|^3.*|^4.*|^999$&lt;/WarningStatusCodeRegEx&gt;&lt;CriticalStatusCodeRegEx&gt;^5.*|^6.*&lt;/CriticalStatusCodeRegEx&gt;</MonitorConfig>
+        <MonitorOperationalStates>
+          <OperationalState>
+            <OperationalStateId>Healthy</OperationalStateId>
+            <OperationalStateDisplayName>Healthy</OperationalStateDisplayName>
+            <MonitorTypeStateId>Healthy</MonitorTypeStateId>
+            <HealthState>Success</HealthState>
+          </OperationalState>
+          <OperationalState>
+            <OperationalStateId>Warning</OperationalStateId>
+            <OperationalStateDisplayName>Warning</OperationalStateDisplayName>
+            <MonitorTypeStateId>Warning</MonitorTypeStateId>
+            <HealthState>Warning</HealthState>
+          </OperationalState>
+          <OperationalState>
+            <OperationalStateId>Critical</OperationalStateId>
+            <OperationalStateDisplayName>Critical</OperationalStateDisplayName>
+            <MonitorTypeStateId>Critical</MonitorTypeStateId>
+            <HealthState>Error</HealthState>
+          </OperationalState>
+        </MonitorOperationalStates>
+        <ParentMonitor>Health!System.Health.AvailabilityState</ParentMonitor>
+        <Accessibility>Public</Accessibility>
+        <Id>Container.Status.Monitor</Id>
+        <DisplayName>Container Status</DisplayName>
+        <Description>Check that the Status code for the container is not an unhealthy value</Description>
+        <Target>Status.IO.Container</Target>
+        <Enabled>true</Enabled>
+        <Category>AvailabilityHealth</Category>
+        <Remotable>true</Remotable>
+        <Priority>Normal</Priority>
+        <AlertAutoResolve>true</AlertAutoResolve>
+        <AlertOnState>Warning</AlertOnState>
+        <AlertPriority>Normal</AlertPriority>
+        <AlertSeverity>MatchMonitorHealth</AlertSeverity>
+        <AlertName>Status.IO Container Status Code</AlertName>
+        <AlertDescription>The container status code for container [$Target/Property[Type="System!System.Entity"]/DisplayName$] is [$Data/Context/Property[@Name='Container_status_code']$] - [$Data/Context/Property[@Name='Container_status']$]</AlertDescription>
+        <ConfirmDelivery>false</ConfirmDelivery>
+      </UnitMonitorConfig>
+    </Instance>
+  </Instances>
+</TemplateGroup>

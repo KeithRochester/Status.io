@@ -1,0 +1,94 @@
+<TemplateGroup>
+  <Instances>
+    <Instance ID="Instance5af8cf2d407045a285e97f9f0c702d8f" Type="Microsoft.SystemCenter.Authoring.CodeGeneration.Monitoring.Discovery" Version="1.0.0.0">
+      <DiscoveryConfig xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <Id>Container.Discovery</Id>
+        <DisplayName>Status.IO Container Discovery</DisplayName>
+        <Description>Discovers Status.IO Containers from an API Endpoint</Description>
+        <DataSourceId>DS</DataSourceId>
+        <DataSourceConfig>&lt;Frequency&gt;14400&lt;/Frequency&gt;&lt;ScheduleStartTime&gt;00:00&lt;/ScheduleStartTime&gt;&lt;ScheduleEndTime&gt;23:59&lt;/ScheduleEndTime&gt;&lt;ScheduleDays&gt;127&lt;/ScheduleDays&gt;&lt;ApiEndpointName&gt;$Target/Property[Type="System!System.Entity"]/DisplayName$&lt;/ApiEndpointName&gt;&lt;ApiEndpointId&gt;$Target/Id$&lt;/ApiEndpointId&gt;&lt;URL&gt;$Target/Property[Type="Status.IO.ApiEndpoint"]/URL$&lt;/URL&gt;&lt;Proxy&gt;$Target/Property[Type="Status.IO.ApiEndpoint"]/Proxy$&lt;/Proxy&gt;&lt;ComponentNameRegEx&gt;$Target/Property[Type="Status.IO.ApiEndpoint"]/ComponentNameRegEx$&lt;/ComponentNameRegEx&gt;&lt;ContainerNameRegEx&gt;$Target/Property[Type="Status.IO.ApiEndpoint"]/ContainerNameRegEx$&lt;/ContainerNameRegEx&gt;&lt;ScriptTimeoutSeconds&gt;60&lt;/ScriptTimeoutSeconds&gt;</DataSourceConfig>
+        <DataSourceType>Status.IO.Container.PropertyBag.Discovery.DataSource</DataSourceType>
+        <Target>Status.IO.ApiEndpoint</Target>
+        <Enabled>true</Enabled>
+        <Remotable>true</Remotable>
+        <Priority>Normal</Priority>
+        <ConfirmDelivery>false</ConfirmDelivery>
+        <Category>Discovery</Category>
+        <DiscoveryClasses>
+          <DiscoveryClassItem>
+            <TypeId>Status.IO.Container</TypeId>
+            <Properties>
+              <DiscoveredTypeProperty>
+                <TypeId>Status.IO.MonitoredObject</TypeId>
+                <Property>Id</Property>
+              </DiscoveredTypeProperty>
+              <DiscoveredTypeProperty>
+                <TypeId>Status.IO.MonitoredObject</TypeId>
+                <Property>ApiEndpointName</Property>
+              </DiscoveredTypeProperty>
+              <DiscoveredTypeProperty>
+                <TypeId>Status.IO.MonitoredObject</TypeId>
+                <Property>ApiEndpointId</Property>
+              </DiscoveredTypeProperty>
+              <DiscoveredTypeProperty>
+                <TypeId>System!System.Entity</TypeId>
+                <Property>DisplayName</Property>
+              </DiscoveredTypeProperty>
+            </Properties>
+          </DiscoveryClassItem>
+        </DiscoveryClasses>
+        <DiscoveryRelationships>
+          <DiscoveryRelationshipItem>
+            <TypeId>Status.IO.ComponentContainsContainer.Relationship</TypeId>
+            <Properties />
+          </DiscoveryRelationshipItem>
+        </DiscoveryRelationships>
+      </DiscoveryConfig>
+    </Instance>
+    <Instance ID="Instance4b95c37eefd04d68a1a459377a9227a6" Type="Microsoft.SystemCenter.Authoring.CodeGeneration.Monitoring.Discovery" Version="1.0.0.0">
+      <DiscoveryConfig xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <Id>Component.Discovery</Id>
+        <DisplayName>Status.IO Component Discovery</DisplayName>
+        <Description>Discovers Status.IO Components from an API Endpoint</Description>
+        <DataSourceId>DS</DataSourceId>
+        <DataSourceConfig>&lt;Frequency&gt;14400&lt;/Frequency&gt;&lt;ScheduleStartTime&gt;00:00&lt;/ScheduleStartTime&gt;&lt;ScheduleEndTime&gt;23:59&lt;/ScheduleEndTime&gt;&lt;ScheduleDays&gt;127&lt;/ScheduleDays&gt;&lt;ApiEndpointName&gt;$Target/Property[Type="System!System.Entity"]/DisplayName$&lt;/ApiEndpointName&gt;&lt;ApiEndpointId&gt;$Target/Id$&lt;/ApiEndpointId&gt;&lt;URL&gt;$Target/Property[Type="Status.IO.ApiEndpoint"]/URL$&lt;/URL&gt;&lt;Proxy&gt;$Target/Property[Type="Status.IO.ApiEndpoint"]/Proxy$&lt;/Proxy&gt;&lt;ComponentNameRegEx&gt;$Target/Property[Type="Status.IO.ApiEndpoint"]/ComponentNameRegEx$&lt;/ComponentNameRegEx&gt;&lt;ContainerNameRegEx&gt;$Target/Property[Type="Status.IO.ApiEndpoint"]/ContainerNameRegEx$&lt;/ContainerNameRegEx&gt;&lt;ScriptTimeoutSeconds&gt;60&lt;/ScriptTimeoutSeconds&gt;</DataSourceConfig>
+        <DataSourceType>Status.IO.Component.PropertyBag.Discovery.DataSource</DataSourceType>
+        <Target>Status.IO.ApiEndpoint</Target>
+        <Enabled>true</Enabled>
+        <Remotable>true</Remotable>
+        <Priority>Normal</Priority>
+        <ConfirmDelivery>false</ConfirmDelivery>
+        <Category>Discovery</Category>
+        <DiscoveryClasses>
+          <DiscoveryClassItem>
+            <TypeId>Status.IO.Component</TypeId>
+            <Properties>
+              <DiscoveredTypeProperty>
+                <TypeId>Status.IO.MonitoredObject</TypeId>
+                <Property>Id</Property>
+              </DiscoveredTypeProperty>
+              <DiscoveredTypeProperty>
+                <TypeId>Status.IO.MonitoredObject</TypeId>
+                <Property>ApiEndpointName</Property>
+              </DiscoveredTypeProperty>
+              <DiscoveredTypeProperty>
+                <TypeId>Status.IO.MonitoredObject</TypeId>
+                <Property>ApiEndpointId</Property>
+              </DiscoveredTypeProperty>
+              <DiscoveredTypeProperty>
+                <TypeId>System!System.Entity</TypeId>
+                <Property>DisplayName</Property>
+              </DiscoveredTypeProperty>
+            </Properties>
+          </DiscoveryClassItem>
+        </DiscoveryClasses>
+        <DiscoveryRelationships>
+          <DiscoveryRelationshipItem>
+            <TypeId>Status.IO.ApiEndpointContainsComponent.Relationship</TypeId>
+            <Properties />
+          </DiscoveryRelationshipItem>
+        </DiscoveryRelationships>
+      </DiscoveryConfig>
+    </Instance>
+  </Instances>
+</TemplateGroup>
