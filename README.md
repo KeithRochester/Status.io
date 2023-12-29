@@ -17,7 +17,7 @@
 
 ### Adding a Hosted Status Page (API Endpoint)
 
-Monitoring is performed by the **Status.io Monitoring Resource Pool** to add a new Status.io hosted public status page use the **Add Status.io API Endpoint** Task. 
+Monitoring is performed by the **Status.io Monitoring Resource Pool**. To add a new Status.io hosted public status page use the **Add Status.io API Endpoint** Task. 
 
 ![Add Status.io API Endpoint](<Screencaps/Add Api Endpoint Task.png>)
 
