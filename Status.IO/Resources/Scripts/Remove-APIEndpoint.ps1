@@ -32,10 +32,10 @@ $MG = Get-SCOMManagementGroup
 $EntityClass = Get-SCOMClass -Name System.Entity
 $ApiEndpointClass = Get-SCOMClass -Name Status.IO.ApiEndpoint
 
-$Connector = Get-SCOMConnector -DisplayName "Status.IO Connector"
+$Connector = Get-SCOMConnector -DisplayName "Status.io Connector"
 if(!$Connector){
-    Add-SCOMConnector -Name "Status.IO Connector" -DisplayName "Status.IO Connector" -Description "Connector used to submit discovery data"
-    $Connector = Get-SCOMConnector -DisplayName "Status.IO Connector"
+    Add-SCOMConnector -Name "Status.io Connector" -DisplayName "Status.io Connector" -Description "Connector used to submit discovery data"
+    $Connector = Get-SCOMConnector -DisplayName "Status.io Connector"
     }
 
 
@@ -57,6 +57,6 @@ try{
     $Success = $false
 }
 if($Success){
-    Write-host "Removed Status.IO API Endpoint: $DisplayName"
+    Write-host "Removed Status.io API Endpoint: $DisplayName"
     $ApiEndpoint.Values | FT @{L='Property';E={$_.Type}},Value
 }

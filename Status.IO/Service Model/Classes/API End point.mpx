@@ -18,8 +18,8 @@
     <LanguagePack ID="ENU" IsDefault="true">
       <DisplayStrings>
         <DisplayString ElementID="Status.IO.ApiEndpoint">
-          <Name>Status.IO API Endpoint</Name>
-          <Description>Status.IO API Endpoint. Used to discover and monitor Status.IO Components and Containers for the status page</Description>
+          <Name>Status.io API Endpoint</Name>
+          <Description>Status.io API Endpoint. Used to discover and monitor Status.io Components and Containers for the status page</Description>
         </DisplayString>
         <DisplayString ElementID="Status.IO.ApiEndpoint" SubElementID="URL">
           <Name>API URL</Name>

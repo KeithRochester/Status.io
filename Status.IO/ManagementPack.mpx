@@ -3,15 +3,15 @@
     <LanguagePack ID="ENU" IsDefault="true">
       <DisplayStrings>
         <DisplayString ElementID="Status.IO">
-          <Name>Status.IO Monitoring</Name>
-          <Description>Status.IO Public API Monitoring</Description>
+          <Name>Status.io Monitoring</Name>
+          <Description>Status.io Public API Monitoring</Description>
         </DisplayString>
       </DisplayStrings>
       <KnowledgeArticles>
         <KnowledgeArticle ElementID="Status.IO" Visible="true">
           <MamlContent>
             <maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10">
-              <maml:title>Status.IO Monitoring</maml:title>
+              <maml:title>Status.io Monitoring</maml:title>
               <maml:para>
                 Documentation and the latest version can be found on GitHub -<maml:navigationLink>
                   <maml:linkText>https://github.com/KeithRochester/Status.IO.</maml:linkText>

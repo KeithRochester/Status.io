@@ -137,7 +137,7 @@
     <LanguagePack ID="ENU" IsDefault="true">
       <DisplayStrings>
         <DisplayString ElementID="Status.IO.Endpoint.SingleObject.StatusCode.MonitorType">
-          <Name>Status IO Endpoint Single Object Status Code Monitor Type</Name>
+          <Name>Status.io Endpoint Single Object Status Code Monitor Type</Name>
           <Description>Monitor type compares status_code of object with regular expressions for warning and critical states</Description>
         </DisplayString>
         <DisplayString ElementID="Status.IO.Endpoint.SingleObject.StatusCode.MonitorType" SubElementID="Frequency">

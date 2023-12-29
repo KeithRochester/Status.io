@@ -56,12 +56,12 @@
     <LanguagePack ID="ENU" IsDefault="true">
       <DisplayStrings>
         <DisplayString ElementID="Status.IO.Endpoint.PropertyBag.ProbeAction">
-          <Name>Status IO Endpoint Property Bag Probe Action</Name>
-          <Description>PowerShell script probe of Status.IO API Endpoint</Description>
+          <Name>Status.io Endpoint Property Bag Probe Action</Name>
+          <Description>PowerShell script probe of Status.io API Endpoint</Description>
         </DisplayString>
         <DisplayString ElementID="Status.IO.Endpoint.PropertyBag.ProbeAction" SubElementID="ScriptTimeoutSeconds">
           <Name>Shell Script Timeout (Seconds)</Name>
-          <Description>Timeout (seconds) for the shell script that gets Status.IO API Endpoint status data</Description>
+          <Description>Timeout (seconds) for the shell script that gets Status.io API Endpoint status data</Description>
         </DisplayString>
       </DisplayStrings>
     </LanguagePack>

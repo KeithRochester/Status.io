@@ -70,8 +70,8 @@
       <DisplayStrings>
 
         <DisplayString ElementID="Status.IO.AddApiEndpoint.WriteAction">
-          <Name>Add Status.IO API Endpoint</Name>
-          <Description>Create Status.IO API Endpoint.</Description>
+          <Name>Add Status.io API Endpoint</Name>
+          <Description>Create Status.io API Endpoint.</Description>
         </DisplayString>
         <DisplayString ElementID="Status.IO.AddApiEndpoint.WriteAction" SubElementID="DisplayName">
           <Name>Display Name</Name>

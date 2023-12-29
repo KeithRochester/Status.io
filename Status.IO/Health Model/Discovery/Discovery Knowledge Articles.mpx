@@ -7,7 +7,7 @@
             <maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10">
               <maml:title>Summary</maml:title>
               <maml:para>
-                Uses PowerShell script to invoke a web request to the Status.IO public API status endpoint and discovers containers
+                Uses PowerShell script to invoke a web request to the Status.io public API status endpoint and discovers containers
               </maml:para>
             </maml:section>
             <maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10">
@@ -31,7 +31,7 @@
             <maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10">
               <maml:title>Summary</maml:title>
               <maml:para>
-                Uses PowerShell script to invoke a web request to the Status.IO public API status endpoint and discovers components
+                Uses PowerShell script to invoke a web request to the Status.io public API status endpoint and discovers components
               </maml:para>
             </maml:section>
             <maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10">

@@ -62,10 +62,10 @@ if($Request -ne $null){
     $EntityClass = Get-SCOMClass -Name System.Entity
     $ApiEndpointClass = Get-SCOMClass -Name Status.IO.ApiEndpoint
 
-    $Connector = Get-SCOMConnector -DisplayName "Status.IO Connector"
+    $Connector = Get-SCOMConnector -DisplayName "Status.io Connector"
     if(!$Connector){
-        Add-SCOMConnector -Name "Status.IO Connector" -DisplayName "Status.IO Connector" -Description "Connector used to submit discovery data"
-        $Connector = Get-SCOMConnector -DisplayName "Status.IO Connector"
+        Add-SCOMConnector -Name "Status.io Connector" -DisplayName "Status.io Connector" -Description "Connector used to submit discovery data"
+        $Connector = Get-SCOMConnector -DisplayName "Status.io Connector"
         }
 
 
@@ -91,7 +91,7 @@ if($Request -ne $null){
 }
 
 if($Success){
-    Write-host "Added Status.IO API Endpoint: $DisplayName"
+    Write-host "Added Status.io API Endpoint: $DisplayName"
     $ApiEndpoint.Values | FT @{L='Property';E={$_.Type}},Value
 }else{
     Write-Host "Unabled to add Endpoint: `n $Error"

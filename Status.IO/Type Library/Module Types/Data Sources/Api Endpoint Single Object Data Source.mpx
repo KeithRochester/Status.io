@@ -97,8 +97,8 @@
     <LanguagePack ID="ENU" IsDefault="true">
       <DisplayStrings>
         <DisplayString ElementID="Status.IO.Endpoint.SingleObject.PropertyBag.DataSource">
-          <Name>Status IO Endpoint Single Object Property Bag Data Source</Name>
-          <Description>Uses PowerShell script probe to generate property bag for Status IO object</Description>
+          <Name>Status.io Endpoint Single Object Property Bag Data Source</Name>
+          <Description>Uses PowerShell script probe to generate property bag for Status.io object</Description>
         </DisplayString>
         <DisplayString ElementID="Status.IO.Endpoint.SingleObject.PropertyBag.DataSource" SubElementID="Frequency">
           <Name>Frequency (Seconds)</Name>

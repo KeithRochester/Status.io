@@ -31,12 +31,12 @@
     <LanguagePack ID="ENU" IsDefault="true">
       <DisplayStrings>
         <DisplayString ElementID="Status.IO.ResourcePool">
-          <Name>Status.IO Monitoring Resource Pool</Name>
-          <Description>Resource Pool used to run Status.IO Discovery and Monitoring workflows</Description>
+          <Name>Status.io Monitoring Resource Pool</Name>
+          <Description>Resource Pool used to run Status.io Discovery and Monitoring workflows</Description>
         </DisplayString>
         <DisplayString ElementID="Status.IO.MonitoredObjectsManagedbyResourcePool.Discovery">
-          <Name>Status.IO Monitored Objects Managed by Resource Pool Discovery</Name>
-          <Description>Discovers managed by relationship for Status.IO monitored objects and the Status.IO Resource Pool</Description>
+          <Name>Status.io Monitored Objects Managed by Resource Pool Discovery</Name>
+          <Description>Discovers managed by relationship for Status.io monitored objects and the Status.io Resource Pool</Description>
         </DisplayString>
       </DisplayStrings>
       <KnowledgeArticles>
@@ -45,7 +45,7 @@
             <maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10">
               <maml:title>Summary</maml:title>
               <maml:para>
-                Uses group population to discover managed by relationship for Status.IO monitored objects and the Status.IO Resource Pool. 
+                Uses group population to discover managed by relationship for Status.io monitored objects and the Status.io Resource Pool. 
               </maml:para>
             </maml:section>
           </MamlContent>

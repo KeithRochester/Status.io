@@ -11,7 +11,7 @@
     <LanguagePack ID="ENU" IsDefault="true">
       <DisplayStrings>
         <DisplayString ElementID="Status.IO.ComponentContainsContainer.Relationship">
-          <Name>Status.IO Component contains Container</Name>
+          <Name>Status.io Component contains Container</Name>
         </DisplayString>
         <DisplayString ElementID="Status.IO.ComponentContainsContainer.Relationship" SubElementID="Endpoint">
           <Name>Endpoint</Name>

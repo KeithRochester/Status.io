@@ -4,8 +4,8 @@
       <CustomTaskConfig xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
         <Accessibility>Internal</Accessibility>
         <Id>Remove.ApiEndpoint.Task</Id>
-        <DisplayName>Remove Status.IO Api Endpoint</DisplayName>
-        <Description>Removes select Status.IO Api Endpoint</Description>
+        <DisplayName>Remove Status.io Api Endpoint</DisplayName>
+        <Description>Removes select Status.io Api Endpoint</Description>
         <Target>Status.IO.ApiEndpoint</Target>
         <Enabled>true</Enabled>
         <Category>Maintenance</Category>
@@ -21,8 +21,8 @@
       <CustomTaskConfig xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
         <Accessibility>Internal</Accessibility>
         <Id>Add.ApiEndpoint.Task</Id>
-        <DisplayName>Add Status.IO Api Endpoint</DisplayName>
-        <Description>Adds a Status.IO Api Endpoint to be discovered and monitored</Description>
+        <DisplayName>Add Status.io Api Endpoint</DisplayName>
+        <Description>Adds a Status.io Api Endpoint to be discovered and monitored</Description>
         <Target>Status.IO.ResourcePool</Target>
         <Enabled>true</Enabled>
         <Category>Maintenance</Category>

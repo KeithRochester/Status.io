@@ -65,8 +65,8 @@
       <DisplayStrings>
 
         <DisplayString ElementID="Status.IO.RemoveApiEndpoint.WriteAction">
-          <Name>Remove Status.IO API Endpoint</Name>
-          <Description>Remove Status.IO API Endpoint.</Description>
+          <Name>Remove Status.io API Endpoint</Name>
+          <Description>Remove Status.io API Endpoint.</Description>
         </DisplayString>
         <DisplayString ElementID="Status.IO.RemoveApiEndpoint.WriteAction" SubElementID="ManagementServer">
           <Name>Management Server</Name>

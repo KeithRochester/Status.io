@@ -23,12 +23,12 @@
     <LanguagePack ID="ENU" IsDefault="true">
       <DisplayStrings>
         <DisplayString ElementID="Status.IO.MonitoredObject">
-          <Name>Status.IO Monitored Object</Name>
-          <Description>Base class for all Status.IO Monitored Objects</Description>
+          <Name>Status.io Monitored Object</Name>
+          <Description>Base class for all Status.io Monitored Objects</Description>
         </DisplayString>
         <DisplayString ElementID="Status.IO.MonitoredObject" SubElementID="Id">
           <Name>Id</Name>
-          <Description>Id of Status.IO Object</Description>
+          <Description>Id of Status.io Object</Description>
         </DisplayString>
         <DisplayString ElementID="Status.IO.MonitoredObject" SubElementID="ApiEndpointName">
           <Name>API Endpoint Name</Name>
@@ -55,12 +55,12 @@
           <Description>Regular expression that containers must match to be included in discovery and monitoring</Description>
         </DisplayString>
         <DisplayString ElementID="Status.IO.Component">
-          <Name>Status.IO Component</Name>
-          <Description>Status.IO Component</Description>
+          <Name>Status.io Component</Name>
+          <Description>Status.io Component</Description>
         </DisplayString>
         <DisplayString ElementID="Status.IO.Container">
-          <Name>Status.IO Container</Name>
-          <Description>Status.IO Container</Description>
+          <Name>Status.io Container</Name>
+          <Description>Status.io Container</Description>
         </DisplayString>
       </DisplayStrings>
     </LanguagePack>

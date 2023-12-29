@@ -190,8 +190,8 @@
     <LanguagePack ID="ENU" IsDefault="true">
       <DisplayStrings>
         <DisplayString ElementID="Status.IO.Component.PropertyBag.Discovery.DataSource">
-          <Name>Status IO Component Property Bag Discovery Data Source</Name>
-          <Description>Uses PowerShell script probe to generate Status IO Component discovery data</Description>
+          <Name>Status.io Component Property Bag Discovery Data Source</Name>
+          <Description>Uses PowerShell script probe to generate Status.io Component discovery data</Description>
         </DisplayString>
         <DisplayString ElementID="Status.IO.Component.PropertyBag.Discovery.DataSource" SubElementID="Frequency">
           <Name>Frequency (Seconds)</Name>

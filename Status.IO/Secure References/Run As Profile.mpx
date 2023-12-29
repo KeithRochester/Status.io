@@ -8,8 +8,8 @@
     <LanguagePack ID="ENU" IsDefault="true">
       <DisplayStrings>
         <DisplayString ElementID="Status.IO.Profile">
-          <Name>Status.IO Monitoring Profile</Name>
-          <Description>This profile is used for Status.IO discovery and monitoring</Description>
+          <Name>Status.io Monitoring Profile</Name>
+          <Description>This profile is used for Status.io discovery and monitoring</Description>
         </DisplayString>
       </DisplayStrings>
     </LanguagePack>

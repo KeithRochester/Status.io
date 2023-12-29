@@ -210,8 +210,8 @@
     <LanguagePack ID="ENU" IsDefault="true">
       <DisplayStrings>
         <DisplayString ElementID="Status.IO.Container.PropertyBag.Discovery.DataSource">
-          <Name>Status IO Container Property Bag Discovery Data Source</Name>
-          <Description>Uses PowerShell script probe to generate Status IO Container discovery data</Description>
+          <Name>Status.io Container Property Bag Discovery Data Source</Name>
+          <Description>Uses PowerShell script probe to generate Status.io Container discovery data</Description>
         </DisplayString>
         <DisplayString ElementID="Status.IO.Container.PropertyBag.Discovery.DataSource" SubElementID="Frequency">
           <Name>Frequency (Seconds)</Name>
