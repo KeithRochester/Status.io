@@ -8,7 +8,7 @@
     <LanguagePack ID="ENU" IsDefault="true">
       <DisplayStrings>
         <DisplayString ElementID="Status.IO.Folder">
-          <Name>Status.IO</Name>
+          <Name>Status.io</Name>
         </DisplayString>
       </DisplayStrings>
     </LanguagePack>

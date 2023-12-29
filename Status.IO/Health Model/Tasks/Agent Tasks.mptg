@@ -1,7 +1,7 @@
 <TemplateGroup>
   <Instances>
     <Instance ID="Instanceee60ee2885cb4c05bfd71cfc4a12f89d" Type="Microsoft.SystemCenter.Authoring.CodeGeneration.Monitoring.CustomTask" Version="1.0.0.0">
-      <CustomTaskConfig xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+      <CustomTaskConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
         <Accessibility>Internal</Accessibility>
         <Id>Remove.ApiEndpoint.Task</Id>
         <DisplayName>Remove Status.io Api Endpoint</DisplayName>
@@ -30,7 +30,7 @@
         <Remotable>true</Remotable>
         <ProbeActionId>PA</ProbeActionId>
         <WriteActionId>WA</WriteActionId>
-        <WriteActionConfig>&lt;DisplayName&gt;Status.IO&lt;/DisplayName&gt;&lt;URL&gt;https://9498199887151372.hostedstatus.com/1.0/status/51f6f2088643809b7200000d&lt;/URL&gt;&lt;Proxy&gt;N/A&lt;/Proxy&gt;&lt;ComponentNameRegEx&gt;.&lt;/ComponentNameRegEx&gt;&lt;ContainerNameRegEx&gt;.&lt;/ContainerNameRegEx&gt;&lt;ManagementServer&gt;.&lt;/ManagementServer&gt;&lt;TimeoutSeconds&gt;60&lt;/TimeoutSeconds&gt;</WriteActionConfig>
+        <WriteActionConfig>&lt;DisplayName&gt;Status.io&lt;/DisplayName&gt;&lt;URL&gt;https://9498199887151372.hostedstatus.com/1.0/status/51f6f2088643809b7200000d&lt;/URL&gt;&lt;Proxy&gt;N/A&lt;/Proxy&gt;&lt;ComponentNameRegEx&gt;.&lt;/ComponentNameRegEx&gt;&lt;ContainerNameRegEx&gt;.&lt;/ContainerNameRegEx&gt;&lt;ManagementServer&gt;.&lt;/ManagementServer&gt;&lt;TimeoutSeconds&gt;60&lt;/TimeoutSeconds&gt;</WriteActionConfig>
         <WriteActionType>Status.IO.AddApiEndpoint.WriteAction</WriteActionType>
       </CustomTaskConfig>
     </Instance>
