@@ -10,7 +10,7 @@
                 <maml:ui>Description</maml:ui>
               </maml:para>
               <maml:para>
-                Invokes web request to Status.IO Status.IO public API status endpoint and compares status code for the component to regular expressions for warning and critical health states. More information about status codes can be found on <maml:navigationLink>
+                Invokes web request to Status.IO public API status endpoint and compares status code for the component to regular expressions for warning and critical health states. More information about status codes can be found on <maml:navigationLink>
                   <maml:linkText>API Status Codes | Status.io Knowledge Base</maml:linkText>
                   <maml:uri href="https://kb.status.io/developers/status-codes/"/>
                 </maml:navigationLink>
@@ -78,7 +78,7 @@
                 <maml:ui>Description</maml:ui>
               </maml:para>
               <maml:para>
-                Invokes web request to Status.IO Status.IO public API status endpoint and compares status code for the container to regular expressions for warning and critical health states. More information about status codes can be found on <maml:navigationLink>
+                Invokes web request to Status.IO public API status endpoint and compares status code for the container to regular expressions for warning and critical health states. More information about status codes can be found on <maml:navigationLink>
                   <maml:linkText>API Status Codes | Status.io Knowledge Base</maml:linkText>
                   <maml:uri href="https://kb.status.io/developers/status-codes/"/>
                 </maml:navigationLink>
