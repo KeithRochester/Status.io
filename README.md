@@ -17,7 +17,7 @@
 
 ### Adding a Hosted Status Page (API Endpoint)
 
-Monitoring is performed by the **Status.io Monitoring Resource Pool** to add a new Status.io hosted public status page use the **Add Status.io API Endpoint** Task. 
+Monitoring is performed by the **Status.io Monitoring Resource Pool**. To add a new Status.io hosted public status page use the **Add Status.io API Endpoint** Task. 
 
 ![Add Status.io API Endpoint](<Screencaps/Add Api Endpoint Task.png>)
 
@@ -51,6 +51,15 @@ API Endpoints, Components, and Containers all have the same monitor type targete
 |Warning Status Code Regular Expression|^2.*\|^3.*\|^4.*\|^999$|Status codes that match the regular expression will generate Warning health state
 
 [API Status Codes](https://kb.status.io/developers/status-codes/)
+
+|Status Code|Status|
+|-|-|
+|100|Operational|
+|200|* Indicates the event is a maintenance|
+|300|Degraded Performance|
+|400|Partial Service Disruption|
+|500|Service Disruption|
+|600|Security Event|
  
 ![Status Code Monitor](<Screencaps/Status Code Monitor.png>)
 
