@@ -94,5 +94,5 @@ if($Success){
     Write-host "Added Status.io API Endpoint: $DisplayName"
     $ApiEndpoint.Values | FT @{L='Property';E={$_.Type}},Value
 }else{
-    Write-Host "Unabled to add Endpoint: `n $Error"
+    Write-Host "Unable to add Endpoint: `n $Error"
 }

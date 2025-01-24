@@ -2,7 +2,7 @@
     <EntityTypes>
       <RelationshipTypes>
         <RelationshipType ID="Status.IO.ComponentContainsContainer.Relationship" Accessibility="Internal" Abstract="false" Base="System!System.Containment">
-          <Source ID="Endpoint" MinCardinality="0" MaxCardinality="2147483647" Type="Status.IO.Component" />
+          <Source ID="Component" MinCardinality="0" MaxCardinality="2147483647" Type="Status.IO.Component" />
           <Target ID="Container" MinCardinality="0" MaxCardinality="2147483647" Type="Status.IO.Container" />
         </RelationshipType>
       </RelationshipTypes>
@@ -13,8 +13,8 @@
         <DisplayString ElementID="Status.IO.ComponentContainsContainer.Relationship">
           <Name>Status.io Component contains Container</Name>
         </DisplayString>
-        <DisplayString ElementID="Status.IO.ComponentContainsContainer.Relationship" SubElementID="Endpoint">
-          <Name>Endpoint</Name>
+        <DisplayString ElementID="Status.IO.ComponentContainsContainer.Relationship" SubElementID="Component">
+          <Name>Component</Name>
         </DisplayString>
         <DisplayString ElementID="Status.IO.ComponentContainsContainer.Relationship" SubElementID="Container">
           <Name>Container</Name>
